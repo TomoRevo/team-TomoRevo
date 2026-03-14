@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TomoRevo — 8分プレゼン</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Base & Variables
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    :root {
+      --orange:   #E8701A;
+      --orange2:  #FF9030;
+      --orange3:  #FFB850;
+      --w100: rgba(255,255,255,1);
+      --w85:  rgba(255,255,255,0.85);
+      --w65:  rgba(255,255,255,0.65);
+      --w45:  rgba(255,255,255,0.45);
+      --w20:  rgba(255,255,255,0.20);
+      --w10:  rgba(255,255,255,0.10);
+      --w06:  rgba(255,255,255,0.06);
+      --o30:  rgba(232,112,26,0.30);
+      --o15:  rgba(232,112,26,0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+      background: #05050d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Slideshow Wrapper
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .slideshow {
+      width: min(960px, 100%);
+      aspect-ratio: 16 / 9;
+      position: relative;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      height: 100%;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,.8);
+      position: relative;
+      flex-direction: column;
+    }
+    .slide.active { display: flex; }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Background logo (all slides)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .logo-bg {
+      position: absolute;
+      inset: 0;
+      background: url('TomoRevoロゴ.png') center/42% auto no-repeat;
+      filter: brightness(0) invert(1) blur(14px);
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Horizon glow bar — gets brighter per slide via inline style */
+    .horizon {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 35%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* All content above background layers */
+    .slide > *:not(.logo-bg):not(.horizon) {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Dawn progression backgrounds
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       S1  = deepest night (#07070f)
+       S10 = full sunrise (warm orange)
+    */
+    #s1  { background: #07070f; }
+    #s2  { background: radial-gradient(ellipse at 50% 120%, #200800 0%, #09090f 55%); }
+    #s3  { background: radial-gradient(ellipse at 50% 115%, #2e0e00 0%, #09090f 52%); }
+    #s4  { background: radial-gradient(ellipse at 50% 110%, #3d1200 0%, #0b090f 50%); }
+    #s5  { background: radial-gradient(ellipse at 50% 105%, #551a00 0%, #0d090e 48%); }
+    #s6  { background: radial-gradient(ellipse at 50% 100%, #6e2200 0%, #10080c 45%); }
+    #s7  { background: radial-gradient(ellipse at 50% 95%,  #8c2e00 0%, #150a0a 42%); }
+    #s8  { background: radial-gradient(ellipse at 50% 88%,  #ae3c00 0%, #1e0e08 38%); }
+    #s9  { background: radial-gradient(ellipse at 50% 80%,  #d45010 0%, #8b2400 40%, #1a0800 75%); }
+    #s10 { background: radial-gradient(ellipse at 50% 65%,  #ff9a30 0%, #d85a0e 28%, #8b2800 58%, #180600 82%); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Horizon glow colors per slide
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .h1  { background: linear-gradient(to top, rgba(40,10,0,.35) 0%, transparent 100%); }
+    .h2  { background: linear-gradient(to top, rgba(60,15,0,.40) 0%, transparent 100%); }
+    .h3  { background: linear-gradient(to top, rgba(80,22,0,.45) 0%, transparent 100%); }
+    .h4  { background: linear-gradient(to top, rgba(100,28,0,.50) 0%, transparent 100%); }
+    .h5  { background: linear-gradient(to top, rgba(130,38,0,.55) 0%, transparent 100%); }
+    .h6  { background: linear-gradient(to top, rgba(160,52,0,.60) 0%, transparent 100%); }
+    .h7  { background: linear-gradient(to top, rgba(185,68,0,.65) 0%, transparent 100%); }
+    .h8  { background: linear-gradient(to top, rgba(210,88,10,.70) 0%, transparent 100%); }
+    .h9  { background: linear-gradient(to top, rgba(240,120,20,.75) 0%, transparent 100%); }
+    .h10 { background: linear-gradient(to top, rgba(255,170,60,.80) 0%, transparent 100%); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Common UI Components
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+    /* Top accent bar */
+    .accent-bar {
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #E8701A 0%, #FFB040 60%, transparent 100%);
+      flex-shrink: 0;
+    }
+
+    /* Slide header */
+    .slide-header {
+      padding: clamp(12px,1.8vw,20px) clamp(24px,3.5vw,48px);
+      border-bottom: 1px solid var(--w10);
+    }
+    .slide-header .en {
+      font-size: clamp(9px,1vw,11px);
+      font-weight: 700;
+      letter-spacing: .18em;
+      color: var(--orange2);
+    }
+    .slide-header h2 {
+      font-size: clamp(16px,2.2vw,26px);
+      font-weight: 700;
+      color: var(--w100);
+      margin-top: 2px;
+      line-height: 1.3;
+    }
+
+    /* Slide body */
+    .slide-body {
+      flex: 1;
+      padding: clamp(14px,2vw,26px) clamp(24px,3.5vw,48px);
+      overflow: hidden;
+    }
+
+    /* Glass card */
+    .card {
+      background: var(--w06);
+      border: 1px solid var(--w10);
+      border-radius: 6px;
+      padding: clamp(10px,1.4vw,16px);
+    }
+    .card-orange {
+      background: var(--o15);
+      border: 1px solid var(--o30);
+      border-radius: 6px;
+      padding: clamp(10px,1.4vw,16px);
+    }
+
+    /* Label */
+    .label-orange {
+      font-size: clamp(8px,.9vw,10px);
+      font-weight: 700;
+      letter-spacing: .14em;
+      color: var(--orange2);
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Slide 1 — Title
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #s1 {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    #s1 .logo-img {
+      width: clamp(180px, 30vw, 320px);
+      filter: brightness(0) invert(1);
+      opacity: .92;
+      margin-bottom: 14px;
+    }
+    #s1 .tagline-ja {
+      font-size: clamp(11px,1.3vw,15px);
+      color: var(--w45);
+      letter-spacing: .14em;
+      margin-bottom: 24px;
+    }
+    #s1 .title-divider {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--orange2), transparent);
+      margin: 0 auto 22px;
+    }
+    #s1 .catch {
+      font-size: clamp(16px,2.4vw,28px);
+      font-weight: 700;
+      color: var(--w85);
+      line-height: 1.55;
+    }
+    #s1 .catch em { color: var(--orange2); font-style: normal; }
+    #s1 .service-label {
+      margin-top: 14px;
+      font-size: clamp(10px,1.1vw,13px);
+      color: var(--w45);
+      letter-spacing: .1em;
+    }
+    #s1 .date-mark {
+      position: absolute;
+      bottom: 18px; right: 26px;
+      font-size: 10px; color: var(--w20);
+      letter-spacing: .06em;
+    }
+
+    /* Stars decoration on title */
+    #s1 .stars {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 3s ease-in-out infinite;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: .15; }
+      50%      { opacity: .6; }
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Slide 2 — Profile
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #s2 .profile-layout {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 22px;
+      height: 100%;
+    }
+    .photo-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 4px;
+      gap: 10px;
+    }
+    .photo-ring {
+      width: clamp(90px,13vw,140px);
+      height: clamp(90px,13vw,140px);
+      border-radius: 50%;
+      border: 2px solid var(--orange);
+      padding: 3px;
+      background: transparent;
+    }
+    .photo-ring img {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .photo-ring-placeholder {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: var(--w06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--w20);
+      font-size: 48px;
+    }
+    .p-name { font-size: clamp(17px,2.2vw,24px); font-weight: 900; color: var(--w85); text-align: center; line-height: 1.2; }
+    .p-name-en { font-size: clamp(10px,1.05vw,12px); color: var(--w45); text-align: center; }
+    .p-role {
+      background: var(--o15);
+      border: 1px solid var(--o30);
+      border-radius: 20px;
+      padding: 3px 12px;
+      font-size: clamp(9px,1vw,11px);
+      font-weight: 700;
+      color: var(--orange2);
+      letter-spacing: .08em;
+      text-align: center;
+    }
+
+    .career-table {
+      width: 100%; border-collapse: collapse;
+      font-size: clamp(9px,1.05vw,12px);
+      margin-bottom: 10px;
+    }
+    .career-table th {
+      background: var(--w06);
+      color: var(--w45);
+      padding: 6px 12px;
+      text-align: left;
+      font-size: clamp(8px,.9vw,10px);
+      letter-spacing: .06em;
+      font-weight: 500;
+      border-bottom: 1px solid var(--w10);
+    }
+    .career-table td {
+      padding: 6px 12px;
+      border-bottom: 1px solid var(--w06);
+      color: var(--w85);
+      vertical-align: middle;
+    }
+    .career-table .n { color: var(--orange3); font-weight: 700; text-align: center; font-size: clamp(13px,1.6vw,18px); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Slide 3 — Agenda
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .agenda-list { display: flex; flex-direction: column; gap: 5px; }
+    .agenda-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 9px 14px;
+      background: var(--w06);
+      border: 1px solid var(--w10);
+      border-radius: 5px;
+      transition: background .2s;
+    }
+    .ag-num {
+      font-size: clamp(16px,2.2vw,26px);
+      font-weight: 900;
+      color: var(--w10);
+      line-height: 1;
+      min-width: 34px;
+    }
+    .ag-en {
+      font-size: clamp(11px,1.3vw,15px);
+      font-weight: 700;
+      color: var(--orange2);
+      min-width: 130px;
+      letter-spacing: .04em;
+    }
+    .ag-ja { font-size: clamp(10px,1.15vw,13px); color: var(--w65); }
+    .ag-time {
+      margin-left: auto;
+      font-size: clamp(9px,1vw,11px);
+      color: var(--orange3);
+      font-weight: 700;
+      min-width: 36px;
+      text-align: right;
+    }
+    .ag-bar {
+      width: 3px;
+      align-self: stretch;
+      border-radius: 2px;
+      background: linear-gradient(to bottom, var(--orange), var(--orange2));
+      flex-shrink: 0;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Slide 4 — Problem
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .tags-wrap { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+    .tag-item {
+      background: var(--w06);
+      border: 1px solid var(--w10);
+      border-radius: 3px;
+      padding: 3px 9px;
+      font-size: clamp(9px,1vw,11px);
+      color: var(--w65);
+    }
+
+    .chain-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 0;
+      margin: 8px 0 14px;
+    }
+    .chain-box {
+      background: var(--w10);
+      color: var(--w85);
+      font-size: clamp(9px,1.1vw,13px);
+      font-weight: 700;
+      padding: 7px 11px;
+      border-radius: 4px;
+      border: 1px solid var(--w20);
+      white-space: nowrap;
+    }
+    .chain-arr {
+      font-size: clamp(14px,2vw,22px);
+      color: var(--orange);
+      padding: 0 5px;
+      flex-shrink: 0;
+    }
+
+    .insight-bar {
+      border-left: 3px solid var(--orange);
+      padding: clamp(10px,1.3vw,14px) clamp(12px,1.8vw,20px);
+      background: var(--o15);
+      border-radius: 0 5px 5px 0;
+      font-size: clamp(10px,1.15vw,13px);
+      color: var(--w85);
+      line-height: 1.8;
+    }
+    .insight-bar strong { color: var(--orange2); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Slide 5 — Solution
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 48px 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .ba-box {
+      border-radius: 6px;
+      padding: clamp(10px,1.4vw,16px);
+    }
+    .ba-box.before {
+      background: rgba(220,38,38,.08);
+      border: 1px solid rgba(220,38,38,.25);
+    }
+    .ba-box.after {
+      background: rgba(22,163,74,.08);
+      border: 1px solid rgba(22,163,74,.25);
+    }
+    .ba-title {
+      font-size: clamp(9px,1vw,11px);
+      font-weight: 700;
+      letter-spacing: .1em;
+      margin-bottom: 7px;
+    }
+    .ba-box.before .ba-title { color: #f87171; }
+    .ba-box.after  .ba-title { color: #4ade80; }
+    .ba-list { list-style: none; }
+    .ba-list li {
+      font-size: clamp(9px,1.05vw,12px);
+      color: var(--w65);
+      padding: 2px 0;
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+    .ba-box.before .ba-list li::before { content: '✕'; color: #f87171; flex-shrink: 0; font-size: 10px; }
+    .ba-box.after  .ba-list li::before { content: '✓'; color: #4ade80; flex-shrink: 0; font-size: 10px; }
+    .ba-arrow { text-align: center; font-size: clamp(22px,3vw,36px); color: var(--orange); line-height: 1; }
+
+    .pillars { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+    .pillar {
+      background: var(--w06);
+      border: 1px solid var(--w10);
+      border-top: 2px solid var(--orange);
+      border-radius: 5px;
+      padding: clamp(9px,1.2vw,14px);
+    }
+    .pillar .p-num {
+      font-size: clamp(9px,1vw,11px);
+      font-weight: 700;
+      color: var(--orange2);
+      letter-spacing: .05em;
+      margin-bottom: 4px;
+    }
+    .pillar h4 {
+      font-size: clamp(10px,1.15vw,13px);
+      font-weight: 700;
+      color: var(--w85);
+      line-height: 1.3;
+      margin-bottom: 5px;
+    }
+    .pillar ul { list-style: none; }
+    .pillar ul li {
+      font-size: clamp(8px,.95vw,11px);
+      color: var(--w45);
+      padding: 1px 0;
+    }
+    .pillar ul li::before { content: '— '; color: var(--orange); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Slide 6 — Value
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; height: 100%; }
+
+    .dark-table { width: 100%; border-collapse: collapse; font-size: clamp(9px,1.05vw,12px); }
+    .dark-table th {
+      background: var(--w06);
+      color: var(--w45);
+      padding: 7px 12px;
+      text-align: left;
+      font-size: clamp(8px,.9vw,10px);
+      letter-spacing: .06em;
+      font-weight: 500;
+      border-bottom: 1px solid var(--w10);
+    }
+    .dark-table td {
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--w06);
+      color: var(--w85);
+      vertical-align: top;
+    }
+    .dark-table .n {
+      font-size: clamp(14px,1.8vw,22px);
+      font-weight: 900;
+      color: var(--w10);
+      text-align: center;
+    }
+    .dark-table .lbl { font-weight: 700; color: var(--orange2); font-size: clamp(9px,1.05vw,12px); }
+
+    .org-block { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+    .org-title { font-size: clamp(9px,1.05vw,12px); font-weight: 700; color: var(--w45); margin-bottom: 10px; letter-spacing: .05em; }
+    .org-pair { display: grid; grid-template-columns: 1fr 36px 1fr; gap: 8px; align-items: center; }
+    .org-box {
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: clamp(8px,.95vw,11px);
+      line-height: 1.7;
+    }
+    .org-box.bad  { background: rgba(220,38,38,.08); border: 1px solid rgba(220,38,38,.2); color: var(--w65); }
+    .org-box.good { background: rgba(22,163,74,.08); border: 1px solid rgba(22,163,74,.2); color: var(--w65); }
+    .org-box h5 { font-size: clamp(9px,1vw,11px); font-weight: 700; margin-bottom: 5px; }
+    .org-box.bad  h5 { color: #f87171; }
+    .org-box.good h5 { color: #4ade80; }
+    .org-arr { text-align: center; font-size: clamp(18px,2.5vw,30px); color: var(--orange); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Slide 7 — Track Record
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .case-card {
+      border: 1px solid var(--w10);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .case-head {
+      background: var(--w06);
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--w10);
+    }
+    .case-head .cn { font-size: clamp(9px,1vw,11px); color: var(--orange2); font-weight: 700; letter-spacing: .1em; }
+    .case-head .ct { font-size: clamp(11px,1.3vw,14px); font-weight: 700; color: var(--w85); margin-top: 2px; }
+    .case-body-c { padding: 10px 14px; }
+    .case-body-c ul { list-style: none; }
+    .case-body-c ul li {
+      font-size: clamp(9px,1.05vw,12px);
+      color: var(--w65);
+      padding: 2px 0;
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+    .case-body-c ul li::before { content: '▸'; color: var(--orange); flex-shrink: 0; }
+
+    .diff-card {
+      background: var(--o15);
+      border: 1px solid var(--o30);
+      border-radius: 6px;
+      padding: clamp(10px,1.4vw,16px) clamp(14px,2vw,22px);
+    }
+    .diff-card h4 { font-size: clamp(9px,1.1vw,12px); color: var(--orange2); font-weight: 700; letter-spacing: .08em; margin-bottom: 8px; }
+    .diff-card ul { list-style: none; display: flex; flex-wrap: wrap; gap: 5px 20px; }
+    .diff-card ul li {
+      font-size: clamp(9px,1.05vw,12px);
+      color: var(--w65);
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+    .diff-card ul li::before { content: '✦'; color: var(--orange2); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Slide 8 — Business Model
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .bm-top { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    .bm-card {
+      border: 1px solid var(--w10);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .bm-head {
+      background: var(--w06);
+      padding: 7px 13px;
+      font-size: clamp(9px,1.05vw,12px);
+      font-weight: 700;
+      color: var(--orange2);
+      letter-spacing: .08em;
+      border-bottom: 1px solid var(--w10);
+    }
+    .bm-body { padding: 9px 13px; }
+    .bm-body ul { list-style: none; }
+    .bm-body ul li {
+      font-size: clamp(9px,1.05vw,12px);
+      color: var(--w65);
+      padding: 2px 0;
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+    .bm-body ul li::before { content: '▸'; color: var(--orange); flex-shrink: 0; }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: clamp(8px,.88vw,10px);
+      font-weight: 700;
+    }
+    .bp { background: rgba(59,130,246,.2); color: #93c5fd; border: 1px solid rgba(59,130,246,.3); }
+    .bs { background: rgba(34,197,94,.2); color: #86efac; border: 1px solid rgba(34,197,94,.3); }
+
+    .phases { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+    .phase { border: 1px solid var(--w10); border-radius: 6px; overflow: hidden; }
+    .ph-head {
+      padding: 7px 12px;
+      font-size: clamp(9px,1.05vw,12px);
+      font-weight: 700;
+      color: var(--w85);
+      border-bottom: 1px solid var(--w10);
+    }
+    .phase:nth-child(1) .ph-head { background: rgba(232,112,26,.35); }
+    .phase:nth-child(2) .ph-head { background: rgba(232,112,26,.22); }
+    .phase:nth-child(3) .ph-head { background: rgba(232,112,26,.12); }
+    .ph-body {
+      padding: 8px 12px;
+      font-size: clamp(9px,1vw,11px);
+      color: var(--w45);
+      background: var(--w06);
+      line-height: 1.6;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Slide 9 — Vision
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #s9 {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    #s9 .v-label {
+      font-size: clamp(9px,1.05vw,12px);
+      font-weight: 700;
+      letter-spacing: .2em;
+      color: var(--orange2);
+      margin-bottom: 12px;
+    }
+    #s9 .v-main {
+      font-size: clamp(20px,3.5vw,42px);
+      font-weight: 900;
+      color: var(--w85);
+      line-height: 1.4;
+    }
+    #s9 .v-main em { color: var(--orange2); font-style: normal; }
+    #s9 .v-div { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--orange2), transparent); margin: 20px auto; }
+    #s9 .v-desc {
+      font-size: clamp(11px,1.4vw,15px);
+      color: var(--w65);
+      line-height: 1.9;
+      max-width: 580px;
+    }
+    #s9 .ripple-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 14px;
+      margin-top: 22px;
+      width: 100%;
+      max-width: 660px;
+    }
+    .ri {
+      background: var(--w06);
+      border: 1px solid var(--w10);
+      border-radius: 6px;
+      padding: 12px 14px;
+      text-align: left;
+    }
+    .ri .ri-lbl { font-size: clamp(8px,.88vw,10px); color: var(--orange2); font-weight: 700; letter-spacing: .1em; margin-bottom: 4px; }
+    .ri .ri-title { font-size: clamp(11px,1.3vw,15px); font-weight: 700; color: var(--w85); margin-bottom: 4px; }
+    .ri .ri-desc { font-size: clamp(9px,1vw,11px); color: var(--w45); line-height: 1.6; }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Slide 10 — Closing
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #s10 {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    #s10 .cl-logo-img {
+      width: clamp(160px,26vw,280px);
+      filter: brightness(0) invert(1);
+      opacity: .92;
+      margin-bottom: 10px;
+    }
+    #s10 .cl-tagline { font-size: clamp(11px,1.3vw,15px); color: var(--w45); letter-spacing: .14em; margin-bottom: 22px; }
+    #s10 .cl-div { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--orange2), transparent); margin: 0 auto 20px; }
+    #s10 .cl-copy { font-size: clamp(15px,2.4vw,28px); font-weight: 700; color: var(--w85); line-height: 1.6; }
+    #s10 .cl-copy em { color: var(--orange2); font-style: normal; }
+    #s10 .cl-sub { margin-top: 14px; font-size: clamp(10px,1.2vw,13px); color: var(--w45); line-height: 1.8; }
+    #s10 .cl-contact { margin-top: 22px; font-size: clamp(9px,1vw,11px); color: var(--w20); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       Navigation
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 18px;
+    }
+    .nav button {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.18);
+      color: #fff;
+      font-family: inherit;
+      font-size: 13px;
+      padding: 7px 22px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .nav button:hover { background: rgba(255,255,255,.16); }
+    .nav button:disabled { opacity: .25; cursor: default; }
+    #counter { color: rgba(255,255,255,.55); font-size: 13px; min-width: 56px; text-align: center; }
+    .dots { display: flex; gap: 6px; margin-top: 10px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.2); cursor: pointer; transition: background .2s; }
+    .dot.active { background: var(--orange2); }
+    .key-hint { color: rgba(255,255,255,.25); font-size: 11px; margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+<div class="slideshow">
+
+<!-- ═══════════════════════════════════════
+     Slide 1 — Title
+═══════════════════════════════════════ -->
+<div class="slide active" id="s1">
+  <div class="logo-bg"></div>
+  <div class="horizon h1"></div>
+  <!-- stars -->
+  <div class="stars" id="starsEl"></div>
+
+  <img class="logo-img" src="TomoRevoロゴ.png" alt="TomoRevo"
+    onerror="this.style.display='none'; document.getElementById('title-text-logo').style.display='block'">
+  <div id="title-text-logo" style="display:none; font-size:clamp(40px,7vw,72px); font-weight:900; color:#fff; letter-spacing:.05em; margin-bottom:10px;">
+    Tomo<span style="color:var(--orange2)">Revo</span>
+  </div>
+  <div class="tagline-ja">トモレボ — ともに革命の灯火を灯す</div>
+  <div class="title-divider"></div>
+  <div class="catch">
+    少人数事業の可能性を、<em>最大化する。</em><br>
+    AIオペレーションチーム構築サービス
+  </div>
+  <div class="service-label">DXサポート事業 ／ 新規事業提案書</div>
+  <div class="date-mark">2026年3月　TomoRevo</div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     Slide 2 — Profile（自己紹介）
+═══════════════════════════════════════ -->
+<div class="slide" id="s2">
+  <div class="logo-bg"></div>
+  <div class="horizon h2"></div>
+  <div class="accent-bar"></div>
+  <div class="slide-header">
+    <div class="en">00 — SELF INTRODUCTION</div>
+    <h2>自己紹介 ― 藤田 裕二</h2>
+  </div>
+  <div class="slide-body">
+    <div class="profile-layout">
+      <div class="photo-col">
+        <div class="photo-ring">
+          <img src="プロフ写真.jpg" alt="藤田裕二"
+            onerror="this.outerHTML='<div class=\'photo-ring-placeholder\'>👤</div>'">
+        </div>
+        <div class="p-name">藤田 裕二</div>
+        <div class="p-name-en">Fujita Yuji</div>
+        <div class="p-role">TomoRevo 代表</div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <table class="career-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>所属・事業</th>
+              <th>役職・担当</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="n">01</td>
+              <td>広告会社</td>
+              <td>CTO（最高技術責任者）</td>
+            </tr>
+            <tr>
+              <td class="n">02</td>
+              <td>フィットネス系ベンチャー企業</td>
+              <td>業務効率化リーダー</td>
+            </tr>
+            <tr>
+              <td class="n">03</td>
+              <td>マーケティング部門</td>
+              <td>YouTubeチームリーダー</td>
+            </tr>
+            <tr>
+              <td class="n">04</td>
+              <td>パーソナルジム</td>
+              <td>2店舗 運営・経営</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="card" style="font-size:clamp(9px,1.05vw,12px); color:var(--w65); line-height:1.8;">
+          不動産営業・システムエンジニアとしての経験を原点に、現場の課題解決と技術実装の両面を体得。<br>
+          事業運営・マーケティング・技術開発にわたる複合的な実務経験が、TomoRevoの事業設計の土台。
+        </div>
+
+        <div class="card-orange" style="line-height:1.8;">
+          <div class="label-orange" style="margin-bottom:5px;">MOTIVATION — 立ち上げの動機</div>
+          <div style="font-size:clamp(10px,1.15vw,13px); color:var(--w85);">
+            熱い思いを持った事業者の可能性を最大化し、<strong style="color:var(--orange2)">ワクワクと生きる大人を増やしたい。</strong><br>
+            子どもたちが大人に憧れて育つ社会を創る——そのビジョンを実現するために TomoRevo を立ち上げた。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     Slide 3 — Agenda
+═══════════════════════════════════════ -->
+<div class="slide" id="s3">
+  <div class="logo-bg"></div>
+  <div class="horizon h3"></div>
+  <div class="accent-bar"></div>
+  <div class="slide-header">
+    <div class="en">AGENDA</div>
+    <h2>本日の流れ — 8分間のプレゼンテーション</h2>
+  </div>
+  <div class="slide-body" style="display:flex; flex-direction:column; justify-content:center;">
+    <div class="agenda-list">
+      <div class="agenda-row">
+        <div class="ag-bar"></div>
+        <div class="ag-num">01</div>
+        <div class="ag-en">Problem</div>
+        <div class="ag-ja">少人数事業者が抱える「忙しい・変われない」の構造的課題</div>
+        <div class="ag-time">1:00</div>
+      </div>
+      <div class="agenda-row">
+        <div class="ag-bar"></div>
+        <div class="ag-num">02</div>
+        <div class="ag-en">Solution</div>
+        <div class="ag-ja">AIオペレーションチームとは何か。サービスの4つの柱。</div>
+        <div class="ag-time">1:30</div>
+      </div>
+      <div class="agenda-row">
+        <div class="ag-bar"></div>
+        <div class="ag-num">03</div>
+        <div class="ag-en">Value</div>
+        <div class="ag-ja">事業者・チーム・組織への具体的な変化と波及効果</div>
+        <div class="ag-time">1:00</div>
+      </div>
+      <div class="agenda-row">
+        <div class="ag-bar"></div>
+        <div class="ag-num">04</div>
+        <div class="ag-en">Track Record</div>
+        <div class="ag-ja">実証済みの実績と、他社との差別化ポイント</div>
+        <div class="ag-time">1:00</div>
+      </div>
+      <div class="agenda-row">
+        <div class="ag-bar"></div>
+        <div class="ag-num">05</div>
+        <div class="ag-en">Business Model</div>
+        <div class="ag-ja">ターゲット・収益設計・展開フェーズ</div>
+        <div class="ag-time">1:30</div>
+      </div>
+      <div class="agenda-row">
+        <div class="ag-bar"></div>
+        <div class="ag-num">06</div>
+        <div class="ag-en">Vision</div>
+        <div class="ag-ja">「ワクワクする時間の総量を最大化する」という思想と事業の接続</div>
+        <div class="ag-time">1:00</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     Slide 4 — Problem
+═══════════════════════════════════════ -->
+<div class="slide" id="s4">
+  <div class="logo-bg"></div>
+  <div class="horizon h4"></div>
+  <div class="accent-bar"></div>
+  <div class="slide-header">
+    <div class="en">01 — PROBLEM</div>
+    <h2>「忙しいから変われない」 少人数事業の構造的課題</h2>
+  </div>
+  <div class="slide-body">
+    <p style="font-size:clamp(10px,1.2vw,13px); color:var(--w65); line-height:1.7; margin-bottom:12px;">
+      熱い思いと確かなサービス力を持つ1人社長・少人数チームが、本来集中すべき
+      <strong style="color:var(--orange2)">「価値創造」</strong>ではなく
+      <strong style="color:#f87171">「業務処理」</strong>に時間を奪われ続けている。
+    </p>
+    <div class="tags-wrap">
+      <span class="tag-item">予約管理</span>
+      <span class="tag-item">顧客対応</span>
+      <span class="tag-item">講師・メンバー連携</span>
+      <span class="tag-item">資料作成</span>
+      <span class="tag-item">ナレッジ整理</span>
+      <span class="tag-item">会議・議事録整理</span>
+      <span class="tag-item">タスク管理</span>
+      <span class="tag-item">マーケ数値集計</span>
+      <span class="tag-item">進捗管理・報告</span>
+    </div>
+    <p style="font-size:clamp(9px,1.05vw,12px); color:var(--w45); font-weight:700; margin-bottom:7px; letter-spacing:.05em;">これらが生み出す「負の連鎖」</p>
+    <div class="chain-row">
+      <div class="chain-box">忙しい</div>
+      <div class="chain-arr">→</div>
+      <div class="chain-box">改善できない</div>
+      <div class="chain-arr">→</div>
+      <div class="chain-box">スケールしない</div>
+      <div class="chain-arr">→</div>
+      <div class="chain-box">疲弊する</div>
+      <div class="chain-arr">→</div>
+      <div class="chain-box">また忙しい</div>
+    </div>
+    <div class="insight-bar">
+      これは<strong>「能力や情熱の問題」ではない。</strong><br>
+      事業運営の仕組み・オペレーション設計・ナレッジ活用の設計が<strong>ボトルネック</strong>になっている、<strong>構造的な問題。</strong><br>
+      解くべきは「人」ではなく<strong>「仕組み」。</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     Slide 5 — Solution
+═══════════════════════════════════════ -->
+<div class="slide" id="s5">
+  <div class="logo-bg"></div>
+  <div class="horizon h5"></div>
+  <div class="accent-bar"></div>
+  <div class="slide-header">
+    <div class="en">02 — SOLUTION</div>
+    <h2>TomoRevoのソリューション ― 「AIオペレーションチーム」の構築</h2>
+  </div>
+  <div class="slide-body">
+    <div class="ba-grid">
+      <div class="ba-box before">
+        <div class="ba-title">BEFORE — 現状</div>
+        <ul class="ba-list">
+          <li>社長に判断・作業が集中する</li>
+          <li>業務が属人的で引き継げない</li>
+          <li>ナレッジが散逸し、消えていく</li>
+          <li>改善サイクルが回らない</li>
+          <li>外注してもすぐ頓挫する</li>
+        </ul>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-box after">
+        <div class="ba-title">AFTER — TomoRevo導入後</div>
+        <ul class="ba-list">
+          <li>業務が自動化・仕組み化される</li>
+          <li>ナレッジが資産として蓄積される</li>
+          <li>チームが自律的に動ける</li>
+          <li>意思決定の質と速度が向上する</li>
+          <li>社長が本質業務に集中できる</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="p-num">Pillar 01</div>
+        <h4>事業オペレーション設計</h4>
+        <ul>
+          <li>業務フロー・顧客管理の整理</li>
+          <li>情報構造の可視化</li>
+          <li>ツール最適設計</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="p-num">Pillar 02</div>
+        <h4>自動化の構築</h4>
+        <ul>
+          <li>予約・顧客対応の自動化</li>
+          <li>管理業務の効率化</li>
+          <li>週次レポート自動生成</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="p-num">Pillar 03</div>
+        <h4>AIオペレーションチーム構築</h4>
+        <ul>
+          <li>議事録自動作成・タスク抽出</li>
+          <li>PDCAナレッジの蓄積・整理</li>
+          <li>社内チャットボット整備</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="p-num">Pillar 04</div>
+        <h4>AI活用文化の定着支援</h4>
+        <ul>
+          <li>チーム全体へのAI活用浸透</li>
+          <li>思考・業務補助として設計</li>
+          <li>人の意思決定力を高める導線</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     Slide 6 — Value
+═══════════════════════════════════════ -->
+<div class="slide" id="s6">
+  <div class="logo-bg"></div>
+  <div class="horizon h6"></div>
+  <div class="accent-bar"></div>
+  <div class="slide-header">
+    <div class="en">03 — VALUE PROPOSITION</div>
+    <h2>提供する価値 ― 事業者・チーム・組織への変化</h2>
+  </div>
+  <div class="slide-body">
+    <div class="value-grid">
+      <div>
+        <table class="dark-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>提供価値</th>
+              <th>具体的な変化</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="n">01</td>
+              <td class="lbl">少人数でも会社のように回る</td>
+              <td>人数に依存しない事業運営が実現</td>
+            </tr>
+            <tr>
+              <td class="n">02</td>
+              <td class="lbl">社長がオペレーションから解放</td>
+              <td>ビジョン実現・顧客価値提供に集中</td>
+            </tr>
+            <tr>
+              <td class="n">03</td>
+              <td class="lbl">意思決定の質と速度が向上</td>
+              <td>ナレッジが良い判断を高速に引き出す</td>
+            </tr>
+            <tr>
+              <td class="n">04</td>
+              <td class="lbl">チームが自律的に提案できる</td>
+              <td>AIで整理した提案を持ち込む文化が育つ</td>
+            </tr>
+            <tr>
+              <td class="n">05</td>
+              <td class="lbl">経験・知識が組織の資産に</td>
+              <td>成功/失敗・PDCA・議事録が蓄積・活用</td>
+            </tr>
+            <tr>
+              <td class="n">06</td>
+              <td class="lbl">チームのAI活用力が高まる</td>
+              <td>チームごとAI時代の仕事へ移行できる</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="org-block">
+        <div class="org-title">組織の意思決定構造の変化</div>
+        <div class="org-pair">
+          <div class="org-box bad">
+            <h5>現状 — 社長にすべてが集中</h5>
+            社員・メンバー<br>
+            ↓ 直接相談・提出<br>
+            <strong>社長（判断集中・疲弊）</strong><br>
+            <span style="color:#f87171; font-size:clamp(8px,.9vw,10px);">— 提案ハードルが高い<br>— 意思決定が詰まる<br>— 改善サイクルが遅い</span>
+          </div>
+          <div class="org-arr">→</div>
+          <div class="org-box good">
+            <h5>理想 — AIが整流器として機能</h5>
+            社員・メンバー<br>
+            ↓ AIで整理・改善<br>
+            <strong style="color:#4ade80;">AI（提案整理・ナレッジ参照）</strong><br>
+            ↓ 質の上がった提案<br>
+            幹部・社長（確認・承認）
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     Slide 7 — Track Record
+═══════════════════════════════════════ -->
+<div class="slide" id="s7">
+  <div class="logo-bg"></div>
+  <div class="horizon h7"></div>
+  <div class="accent-bar"></div>
+  <div class="slide-header">
+    <div class="en">04 — TRACK RECORD</div>
+    <h2>実証済みの実績 ― 導入事例と競合差別化</h2>
+  </div>
+  <div class="slide-body">
+    <div class="cases-grid">
+      <div class="case-card">
+        <div class="case-head">
+          <div class="cn">CASE 01</div>
+          <div class="ct">オンライン顔ヨガサービス（1人社長）</div>
+        </div>
+        <div class="case-body-c">
+          <ul>
+            <li>予約フローの自動化・オペレーション設計</li>
+            <li>ランディングページ（LP）の企画・制作</li>
+            <li>講座テキスト・コンテンツの作成支援</li>
+            <li>既存ツールを活用した全体最適オペレーション構築</li>
+            <li>AIを活用した高速な構築・改善サイクルの確立</li>
+          </ul>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-head">
+          <div class="cn">CASE 02</div>
+          <div class="ct">オンラインフィットネス・スクール（年商4億円規模）</div>
+        </div>
+        <div class="case-body-c">
+          <ul>
+            <li>マーケティング分析の自動化支援</li>
+            <li>業務効率化および顧客満足度向上のための<br>オリジナルサポートツールの開発</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="diff-card">
+      <h4>TomoRevoが他社サービスと異なる点 — Core Differentiator</h4>
+      <ul>
+        <li>「AI導入支援」ではなく<strong style="color:var(--orange2)">「事業オペレーション設計」を起点</strong>とした差別化ポジション</li>
+        <li>ツールを販売するのではなく<strong style="color:var(--orange2)">事業が継続的に回る「仕組み」ごと提供</strong></li>
+        <li>設計から実装・定着まで<strong style="color:var(--orange2)">一貫して担う実行力</strong></li>
+        <li>LP制作・コンテンツ制作・事業設計まで対応できる<strong style="color:var(--orange2)">総合性</strong></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     Slide 8 — Business Model
+═══════════════════════════════════════ -->
+<div class="slide" id="s8">
+  <div class="logo-bg"></div>
+  <div class="horizon h8"></div>
+  <div class="accent-bar"></div>
+  <div class="slide-header">
+    <div class="en">05 — BUSINESS MODEL</div>
+    <h2>ビジネスモデル ― ターゲット・収益設計・展開フェーズ</h2>
+  </div>
+  <div class="slide-body">
+    <div class="bm-top">
+      <div class="bm-card">
+        <div class="bm-head">ターゲット顧客</div>
+        <div class="bm-body">
+          <ul>
+            <li>1人社長・少人数チーム（概ね10名以下）</li>
+            <li>オンラインサービス・コーチング・スクール系</li>
+            <li>想いはあるが業務処理に追われている経営者</li>
+            <li>AIへの関心はあるが独力では使いこなせない層</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bm-card">
+        <div class="bm-head">競合との差別化</div>
+        <div class="bm-body">
+          <ul>
+            <li>ツール導入支援（点）ではなく仕組み設計（面）</li>
+            <li>コンサル × 実装 × 伴走の一体型支援</li>
+            <li>AI活用文化の定着まで責任を持つ</li>
+            <li>「使いこなせる状態」を保証する伴走モデル</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <table class="dark-table" style="margin-bottom:10px;">
+      <thead>
+        <tr>
+          <th>サービスカテゴリ</th>
+          <th>主な提供内容</th>
+          <th>提供形態</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--w85)">オペレーション設計</strong></td>
+          <td>業務フロー・情報構造・ツール設計</td>
+          <td><span class="badge bp">初期プロジェクト型</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--w85)">自動化・AI構築</strong></td>
+          <td>予約・対応・レポートの自動化</td>
+          <td><span class="badge bp">初期プロジェクト型</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--w85)">AIオペレーションチーム伴走</strong></td>
+          <td>継続運用・改善・チーム浸透支援</td>
+          <td><span class="badge bs">月額ストック型</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--w85)">AI活用文化定着支援</strong></td>
+          <td>チームへのAI活用研修・定着支援</td>
+          <td><span class="badge bp">ワークショップ・伴走型</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="phases">
+      <div class="phase">
+        <div class="ph-head">Phase 01 — 現在：実証・事例構築</div>
+        <div class="ph-body">既存1社への支援を深化させ、再現性のある支援パッケージを設計。成果事例・ナレッジを体系的に言語化する。</div>
+      </div>
+      <div class="phase">
+        <div class="ph-head">Phase 02 — 横展開・パッケージ化</div>
+        <div class="ph-body">コーチング・スクール・オンライン系の類似事業者へ展開。成功事例を積み上げ、ブランドと信頼を確立する。</div>
+      </div>
+      <div class="phase">
+        <div class="ph-head">Phase 03 — スケール・プラットフォーム化</div>
+        <div class="ph-body">業界特化型オペレーション設計テンプレートとAIチームプラットフォームの開発・提供へ展開。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     Slide 9 — Vision
+═══════════════════════════════════════ -->
+<div class="slide" id="s9">
+  <div class="logo-bg"></div>
+  <div class="horizon h9"></div>
+
+  <div class="v-label">06 — VISION &amp; PHILOSOPHY</div>
+  <div class="v-main">
+    「<em>ワクワクする時間の総量</em>」を、<br>社会全体で最大化する。
+  </div>
+  <div class="v-div"></div>
+  <div class="v-desc">
+    熱い思いを持った事業者が、その想いを形にし続けられるとき、<br>
+    その事業に触れるユーザーの人生もまた豊かになる。<br>
+    豊かな大人が増えるとき、子供たちは自然と大人に憧れるようになる。
+  </div>
+  <div class="ripple-grid">
+    <div class="ri">
+      <div class="ri-lbl">I — FOR ENTREPRENEURS</div>
+      <div class="ri-title">事業者の解放</div>
+      <div class="ri-desc">オペレーションから解放された事業者が、本来の情熱と創造性に集中できる。</div>
+    </div>
+    <div class="ri">
+      <div class="ri-lbl">II — FOR USERS</div>
+      <div class="ri-title">価値の連鎖</div>
+      <div class="ri-desc">事業者の幸福度が高まるほど、ユーザーへの価値提供の質と深さも増していく。</div>
+    </div>
+    <div class="ri">
+      <div class="ri-lbl">III — FOR SOCIETY</div>
+      <div class="ri-title">社会への波及</div>
+      <div class="ri-desc">子供たちが「大人って楽しそうだ」と思える社会の実現を、事業を通じて目指す。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     Slide 10 — Closing
+═══════════════════════════════════════ -->
+<div class="slide" id="s10">
+  <div class="logo-bg"></div>
+  <div class="horizon h10"></div>
+
+  <img class="cl-logo-img" src="TomoRevoロゴ.png" alt="TomoRevo"
+    onerror="this.style.display='none'; document.getElementById('cl-text-logo').style.display='block'">
+  <div id="cl-text-logo" style="display:none; font-size:clamp(36px,6vw,60px); font-weight:900; color:#fff; letter-spacing:.05em; margin-bottom:8px;">
+    Tomo<span style="color:var(--orange2)">Revo</span>
+  </div>
+  <div class="cl-tagline">ともに革命の灯火を灯す</div>
+  <div class="cl-div"></div>
+  <div class="cl-copy">
+    少人数事業の「裏側」を仕組み化し、<br>
+    <em>事業者が本質に集中できる世界を創る。</em>
+  </div>
+  <div class="cl-sub">
+    AIオペレーションチーム構築サービス ／ DXサポート事業<br>
+    TomoRevo — 新規事業提案書　2026年3月
+  </div>
+  <div class="cl-contact">代表：藤田 裕二　｜　TomoRevo</div>
+</div>
+
+</div><!-- /slideshow -->
+
+<!-- Navigation -->
+<div class="nav">
+  <button id="prevBtn" onclick="changeSlide(-1)" disabled>◀ 前へ</button>
+  <span id="counter">1 / 10</span>
+  <button id="nextBtn" onclick="changeSlide(1)">次へ ▶</button>
+</div>
+<div class="dots" id="dotsEl"></div>
+<div class="key-hint">← → キーでも操作できます</div>
+
+<script>
+  /* ── Navigation ── */
+  let cur = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total  = slides.length;
+  const dotsEl = document.getElementById('dotsEl');
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[cur].classList.remove('active');
+    dotsEl.children[cur].classList.remove('active');
+    cur = Math.max(0, Math.min(n, total - 1));
+    slides[cur].classList.add('active');
+    dotsEl.children[cur].classList.add('active');
+    document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
+    document.getElementById('prevBtn').disabled = cur === 0;
+    document.getElementById('nextBtn').disabled = cur === total - 1;
+  }
+  function changeSlide(d) { goTo(cur + d); }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   changeSlide(-1);
+  });
+
+  /* ── Stars on title slide ── */
+  const starsEl = document.getElementById('starsEl');
+  if (starsEl) {
+    const count = 60;
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = Math.random() * 2 + 1;
+      s.style.cssText = `
+        width: ${size}px; height: ${size}px;
+        top: ${Math.random() * 85}%;
+        left: ${Math.random() * 100}%;
+        animation-delay: ${Math.random() * 3}s;
+        animation-duration: ${2 + Math.random() * 3}s;
+        opacity: ${0.1 + Math.random() * 0.4};
+      `;
+      starsEl.appendChild(s);
+    }
+  }
+</script>
+</body>
+</html>

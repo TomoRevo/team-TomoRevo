@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TomoRevo 事業提案書</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:        #182840;
+      --navy-mid:    #243352;
+      --accent:      #1f5a96;
+      --accent-pale: #eaf1f9;
+      --gold:        #a08040;
+      --gold-pale:   #f5f0e8;
+      --text:        #111827;
+      --text-mid:    #374151;
+      --text-sub:    #6b7280;
+      --border:      #d1d5db;
+      --border-light:#e5e7eb;
+      --bg:          #ffffff;
+      --bg-soft:     #f9fafb;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic Medium', sans-serif;
+      background: #d8dce6;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.8;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── ページ共通 ── */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      background: var(--bg);
+      margin: 0 auto 24px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: stretch;
+    }
+
+    .header-bar {
+      width: 5px;
+      background: var(--navy);
+      flex-shrink: 0;
+    }
+
+    .header-inner {
+      flex: 1;
+      padding: 7mm 14mm 6mm;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-brand {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 0.08em;
+    }
+
+    .header-doc {
+      font-size: 9px;
+      color: var(--text-sub);
+      letter-spacing: 0.12em;
+    }
+
+    .page-body {
+      flex: 1;
+      padding: 10mm 18mm 8mm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-footer {
+      border-top: 1px solid var(--border-light);
+      padding: 5mm 18mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-note {
+      font-size: 8.5px;
+      color: var(--text-sub);
+      letter-spacing: 0.08em;
+    }
+
+    .footer-page {
+      font-size: 8.5px;
+      color: var(--text-sub);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── セクションラベル ── */
+    .sec-label {
+      font-size: 8px;
+      letter-spacing: 0.28em;
+      color: var(--accent);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 3mm;
+    }
+
+    .page-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.4;
+      margin-bottom: 4mm;
+    }
+
+    .title-rule {
+      width: 32px;
+      height: 2px;
+      background: var(--accent);
+      margin-bottom: 7mm;
+    }
+
+    /* ── 本文テキスト ── */
+    .body-text {
+      font-size: 11.5px;
+      color: var(--text-mid);
+      line-height: 1.95;
+      margin-bottom: 5mm;
+    }
+
+    .sub-head {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: 0.05em;
+      margin: 6mm 0 3mm;
+      padding-bottom: 2mm;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .spacer { flex: 1; }
+
+    /* ── リスト ── */
+    .dot-list {
+      list-style: none;
+      font-size: 11px;
+      color: var(--text-mid);
+      line-height: 1.85;
+    }
+
+    .dot-list li {
+      display: flex;
+      gap: 4mm;
+      align-items: flex-start;
+      margin-bottom: 1.5mm;
+    }
+
+    .dot-list li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    /* ── 2カラム ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8mm;
+    }
+
+    /* ================================================================
+       PAGE 1: 表紙
+    ================================================================ */
+    .cover {
+      background: var(--navy);
+      color: #fff;
+      min-height: 297mm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cover-accent-bar {
+      height: 4px;
+      background: linear-gradient(to right, var(--gold) 0%, var(--accent) 100%);
+    }
+
+    .cover-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 22mm 24mm 18mm;
+    }
+
+    .cover-doc-type {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      margin-bottom: 12mm;
+    }
+
+    .cover-title-en {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 72px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.03em;
+      line-height: 1;
+      margin-bottom: 3mm;
+    }
+
+    .cover-title-kana {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.35em;
+      font-weight: 300;
+      margin-bottom: 12mm;
+    }
+
+    .cover-rule {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 8mm;
+    }
+
+    .cover-subtitle {
+      font-size: 14px;
+      color: rgba(255,255,255,0.82);
+      font-weight: 300;
+      line-height: 2.0;
+      margin-bottom: 14mm;
+    }
+
+    .cover-vision-block {
+      border: 1px solid rgba(255,255,255,0.16);
+      padding: 7mm 9mm;
+      margin-bottom: 0;
+    }
+
+    .cover-vision-label {
+      font-size: 8px;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 4mm;
+      font-weight: 700;
+    }
+
+    .cover-vision-text {
+      font-size: 12px;
+      color: rgba(255,255,255,0.75);
+      line-height: 2.0;
+      font-weight: 300;
+    }
+
+    .cover-footer {
+      padding: 8mm 24mm;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cover-footer-l {
+      font-size: 9px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.1em;
+    }
+
+    .cover-footer-r {
+      font-size: 9px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.08em;
+    }
+
+    /* ================================================================
+       PAGE 2: 目次
+    ================================================================ */
+    .toc-intro {
+      background: var(--bg-soft);
+      border-left: 3px solid var(--accent);
+      padding: 5mm 7mm;
+      margin-bottom: 8mm;
+      font-size: 11px;
+      color: var(--text-mid);
+      line-height: 1.9;
+    }
+
+    .toc-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .toc-table tr {
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .toc-table tr:first-child {
+      border-top: 1px solid var(--border-light);
+    }
+
+    .toc-num-cell {
+      padding: 5mm 6mm 5mm 0;
+      vertical-align: top;
+      width: 14mm;
+    }
+
+    .toc-num-inner {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--navy);
+      opacity: 0.18;
+      line-height: 1;
+    }
+
+    .toc-title-cell {
+      padding: 5mm 4mm;
+      vertical-align: top;
+    }
+
+    .toc-title-text {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 1.5mm;
+    }
+
+    .toc-sub-text {
+      font-size: 10px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    .toc-page-cell {
+      padding: 5mm 0 5mm 4mm;
+      vertical-align: top;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .toc-page-num {
+      font-size: 10px;
+      color: var(--text-sub);
+      letter-spacing: 0.05em;
+    }
+
+    /* ================================================================
+       PAGE 3: 課題
+    ================================================================ */
+    .task-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5mm;
+      margin: 4mm 0;
+    }
+
+    .task-chip {
+      background: var(--accent-pale);
+      border: 1px solid #c8d8ee;
+      padding: 3mm 4mm;
+      font-size: 10px;
+      color: var(--navy);
+      text-align: center;
+      line-height: 1.4;
+      letter-spacing: 0.02em;
+    }
+
+    .loop-box {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      padding: 6mm 8mm;
+      margin: 5mm 0;
+    }
+
+    .loop-label {
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      color: var(--text-sub);
+      text-align: center;
+      margin-bottom: 5mm;
+      text-transform: uppercase;
+    }
+
+    .loop-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2mm;
+      flex-wrap: wrap;
+    }
+
+    .loop-node {
+      border: 1.5px solid #c87070;
+      background: #fff8f8;
+      color: #9b3030;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2.5mm 5mm;
+      letter-spacing: 0.02em;
+    }
+
+    .loop-arrow {
+      font-size: 13px;
+      color: #c87070;
+      line-height: 1;
+    }
+
+    .key-box {
+      border: 1.5px solid var(--navy);
+      padding: 5mm 7mm;
+      margin: 6mm 0;
+    }
+
+    .key-box-text {
+      font-size: 11.5px;
+      color: var(--navy);
+      line-height: 1.9;
+    }
+
+    .key-box-text strong {
+      color: var(--accent);
+    }
+
+    /* ================================================================
+       PAGE 4: ソリューション
+    ================================================================ */
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr 28px 1fr;
+      gap: 0;
+      align-items: stretch;
+      margin: 5mm 0;
+      border: 1px solid var(--border);
+    }
+
+    .ba-col {
+      padding: 6mm;
+    }
+
+    .ba-before {
+      background: var(--bg-soft);
+    }
+
+    .ba-after {
+      background: var(--accent-pale);
+    }
+
+    .ba-divider {
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .ba-label {
+      font-size: 8.5px;
+      letter-spacing: 0.2em;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 4mm;
+      padding-bottom: 3mm;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ba-before .ba-label { color: var(--text-sub); }
+    .ba-after  .ba-label { color: var(--accent); }
+
+    .ba-list {
+      list-style: none;
+      font-size: 10.5px;
+      color: var(--text-mid);
+      line-height: 1.8;
+    }
+
+    .ba-list.neg li::before { content: '—  '; color: #b05050; }
+    .ba-list.pos li::before { content: '—  '; color: var(--accent); }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5mm;
+      margin: 5mm 0;
+    }
+
+    .pillar-card {
+      border: 1px solid var(--border);
+      padding: 5mm 6mm;
+    }
+
+    .pillar-no {
+      font-size: 8px;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 2mm;
+    }
+
+    .pillar-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 3mm;
+      line-height: 1.4;
+    }
+
+    .pillar-list {
+      list-style: none;
+      font-size: 10px;
+      color: var(--text-mid);
+      line-height: 1.75;
+    }
+
+    .pillar-list li::before {
+      content: '・';
+      color: var(--accent);
+    }
+
+    /* ================================================================
+       PAGE 5: 提供価値
+    ================================================================ */
+    .value-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 4mm 0 6mm;
+    }
+
+    .value-table th {
+      background: var(--navy);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3.5mm 5mm;
+      text-align: left;
+      letter-spacing: 0.05em;
+    }
+
+    .value-table td {
+      padding: 4mm 5mm;
+      font-size: 11px;
+      color: var(--text-mid);
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: top;
+      line-height: 1.7;
+    }
+
+    .value-table tr:nth-child(even) td {
+      background: var(--bg-soft);
+    }
+
+    .value-table .td-no {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      width: 10mm;
+      white-space: nowrap;
+    }
+
+    .value-table .td-title {
+      font-weight: 700;
+      color: var(--navy);
+      width: 52mm;
+    }
+
+    .org-compare {
+      display: grid;
+      grid-template-columns: 1fr 20px 1fr;
+      gap: 0;
+      margin: 4mm 0;
+    }
+
+    .org-panel {
+      border: 1px solid var(--border);
+      padding: 5mm 6mm;
+    }
+
+    .org-panel-now { background: var(--bg-soft); }
+    .org-panel-ideal { background: var(--accent-pale); }
+
+    .org-panel-label {
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 4mm;
+      padding-bottom: 3mm;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .org-panel-now   .org-panel-label { color: var(--text-sub); }
+    .org-panel-ideal .org-panel-label { color: var(--accent); }
+
+    .org-arrow-col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--accent);
+    }
+
+    .org-node {
+      border: 1px solid var(--border);
+      background: #fff;
+      text-align: center;
+      padding: 3mm 4mm;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .org-node.node-problem {
+      background: #fff4f4;
+      border-color: #dba0a0;
+      color: #8b2020;
+    }
+
+    .org-node.node-ai {
+      background: #edf7ee;
+      border-color: #8abf8e;
+      color: #205820;
+    }
+
+    .org-node.node-exec {
+      background: var(--accent-pale);
+      border-color: #9ab8d8;
+      color: var(--navy);
+    }
+
+    .org-conn {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-sub);
+      padding: 1.5mm 0;
+      line-height: 1.2;
+    }
+
+    .org-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 2mm;
+    }
+
+    .org-remark {
+      margin-top: 4mm;
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .remark-neg { color: #9b3030; }
+    .remark-pos { color: #1a5a1a; }
+
+    /* ================================================================
+       PAGE 6: 実績
+    ================================================================ */
+    .case-block {
+      border: 1px solid var(--border);
+      margin: 5mm 0;
+    }
+
+    .case-head {
+      background: var(--navy);
+      color: #fff;
+      padding: 4mm 6mm;
+      display: flex;
+      align-items: center;
+      gap: 4mm;
+    }
+
+    .case-badge {
+      font-size: 8.5px;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 1mm 3mm;
+    }
+
+    .case-client-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.04em;
+    }
+
+    .case-body {
+      padding: 5mm 6mm;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3mm;
+    }
+
+    .case-item {
+      display: flex;
+      gap: 3mm;
+      align-items: flex-start;
+    }
+
+    .case-bullet {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    .case-text {
+      font-size: 10.5px;
+      color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    .insight-block {
+      border-left: 3px solid var(--gold);
+      background: var(--gold-pale);
+      padding: 5mm 7mm;
+      margin: 5mm 0;
+    }
+
+    .insight-label {
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 3mm;
+    }
+
+    .insight-text {
+      font-size: 11.5px;
+      color: var(--text);
+      line-height: 1.9;
+    }
+
+    /* ================================================================
+       PAGE 7: ビジネスモデル
+    ================================================================ */
+    .revenue-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 4mm 0 6mm;
+      font-size: 10.5px;
+    }
+
+    .revenue-table th {
+      background: var(--navy);
+      color: #fff;
+      padding: 3mm 5mm;
+      text-align: left;
+      font-weight: 500;
+      font-size: 9.5px;
+      letter-spacing: 0.06em;
+    }
+
+    .revenue-table td {
+      padding: 3.5mm 5mm;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-mid);
+      line-height: 1.6;
+      vertical-align: middle;
+    }
+
+    .revenue-table tr:nth-child(even) td {
+      background: var(--bg-soft);
+    }
+
+    .revenue-table .row-highlight td {
+      background: var(--accent-pale);
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    .revenue-table .row-highlight td:first-child {
+      border-left: 3px solid var(--accent);
+    }
+
+    .phases {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3.5mm;
+      margin: 4mm 0;
+    }
+
+    .phase-card {
+      border: 1px solid var(--border);
+      padding: 5mm;
+      position: relative;
+    }
+
+    .phase-card.current {
+      border-color: var(--accent);
+      border-left-width: 3px;
+    }
+
+    .phase-no {
+      font-size: 8.5px;
+      letter-spacing: 0.15em;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 2mm;
+    }
+
+    .phase-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 3mm;
+      line-height: 1.4;
+    }
+
+    .phase-desc {
+      font-size: 10px;
+      color: var(--text-mid);
+      line-height: 1.75;
+    }
+
+    .phase-now-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 7.5px;
+      letter-spacing: 0.12em;
+      padding: 0.5mm 2.5mm;
+      font-weight: 700;
+      margin-left: 3mm;
+      vertical-align: middle;
+    }
+
+    /* ================================================================
+       PAGE 8: ビジョン
+    ================================================================ */
+    .vision-page {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .vision-top-bar {
+      height: 4px;
+      background: linear-gradient(to right, var(--gold), var(--accent));
+    }
+
+    .vision-header {
+      padding: 8mm 22mm 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 6mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .vision-header-brand {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.1em;
+    }
+
+    .vision-header-doc {
+      font-size: 9px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.12em;
+    }
+
+    .vision-body {
+      flex: 1;
+      padding: 12mm 22mm 10mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .vision-sec-label {
+      font-size: 8px;
+      letter-spacing: 0.28em;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      margin-bottom: 6mm;
+    }
+
+    .vision-headline {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.6;
+      margin-bottom: 4mm;
+    }
+
+    .vision-headline em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .vision-rule {
+      width: 36px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 8mm;
+    }
+
+    .vision-paragraph {
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.75);
+      line-height: 2.1;
+      margin-bottom: 10mm;
+      font-weight: 300;
+    }
+
+    .vision-quote {
+      border-left: 2px solid var(--gold);
+      padding: 5mm 8mm;
+      margin-bottom: 12mm;
+    }
+
+    .vision-quote-main {
+      font-size: 14px;
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+      line-height: 1.8;
+      letter-spacing: 0.04em;
+      margin-bottom: 2mm;
+    }
+
+    .vision-quote-sub {
+      font-size: 10px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .vision-pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 4mm;
+    }
+
+    .vision-pillar {
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 5mm 6mm;
+    }
+
+    .vp-no {
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 3mm;
+    }
+
+    .vp-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2.5mm;
+      line-height: 1.4;
+    }
+
+    .vp-text {
+      font-size: 10px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.75;
+    }
+
+    .vision-footer {
+      padding: 5mm 22mm;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      font-size: 8.5px;
+      color: rgba(255,255,255,0.28);
+      letter-spacing: 0.08em;
+    }
+
+    /* ================================================================
+       印刷設定
+    ================================================================ */
+    @media print {
+      body { background: white; }
+
+      .page {
+        margin: 0;
+        page-break-after: always;
+        break-after: page;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        box-shadow: none;
+        height: 297mm;
+        overflow: hidden;
+      }
+
+      /* ヘッダー・フッター余白を縮小 */
+      .header-inner {
+        padding: 5mm 12mm 4mm;
+      }
+      .page-body {
+        padding: 7mm 15mm 4mm;
+      }
+      .page-footer {
+        padding: 3mm 15mm;
+      }
+
+      /* セクション間の余白を縮小 */
+      .page-title { margin-bottom: 3mm; }
+      .title-rule { margin-bottom: 5mm; }
+      .body-text { margin-bottom: 3mm; line-height: 1.8; }
+      .sub-head { margin: 4mm 0 2mm; }
+
+      /* コンテンツブロックの余白縮小 */
+      .loop-box   { margin: 3mm 0; padding: 4mm 7mm; }
+      .key-box    { margin: 3mm 0; padding: 4mm 6mm; }
+      .case-block { margin: 3mm 0; }
+      .insight-block { margin: 3mm 0; padding: 4mm 6mm; }
+      .before-after  { margin: 3mm 0; }
+      .pillars    { margin: 3mm 0; gap: 3mm; }
+      .value-table  { margin: 2mm 0 4mm; }
+      .org-compare  { margin: 2mm 0; }
+      .revenue-table { margin: 2mm 0 4mm; }
+      .phases     { margin: 2mm 0; gap: 3mm; }
+      .toc-intro  { margin-bottom: 5mm; }
+
+      /* テーブルセルの余白縮小 */
+      .value-table td, .value-table th { padding: 2.5mm 4mm; }
+      .revenue-table td, .revenue-table th { padding: 2.5mm 4mm; }
+      .case-body  { padding: 3mm 5mm; gap: 2mm; }
+      .case-head  { padding: 3mm 5mm; }
+      .pillar-card { padding: 4mm 5mm; }
+      .phase-card  { padding: 4mm; }
+      .ba-col     { padding: 4mm 5mm; }
+      .toc-num-cell, .toc-title-cell, .toc-page-cell { padding-top: 3.5mm; padding-bottom: 3.5mm; }
+
+      /* ブロック内の改ページを禁止 */
+      .case-block,
+      .insight-block,
+      .loop-box,
+      .key-box,
+      .before-after,
+      .pillars,
+      .org-compare,
+      .phases,
+      .toc-intro,
+      .vision-quote,
+      .vision-pillars {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================================================================
+     PAGE 1: 表紙
+================================================================ -->
+<div class="page cover">
+  <div class="cover-accent-bar"></div>
+  <div class="cover-main">
+    <div class="cover-doc-type">New Business Proposal &nbsp;/&nbsp; Confidential</div>
+
+    <div style="display: flex; align-items: center; gap: 5mm; margin-bottom: 3mm;">
+      <img src="TomoRevoロゴ.png" alt="TomoRevo logo" style="height: 18mm; width: auto; opacity: 0.9; flex-shrink: 0;" />
+      <div class="cover-title-en">TomoRevo</div>
+    </div>
+    <div class="cover-title-kana">トモレボ &nbsp;—&nbsp; ともに革命の灯火を灯す</div>
+    <div style="margin-bottom: 10mm; margin-top: -6mm;">
+      <span style="display: inline-block; border: 1px solid rgba(255,255,255,0.3); padding: 1.5mm 5mm; font-size: 10px; letter-spacing: 0.2em; color: rgba(255,255,255,0.55); font-weight: 400;">DXサポート事業</span>
+    </div>
+
+    <div class="cover-rule"></div>
+
+    <div class="cover-subtitle">
+      少人数事業の可能性を、最大化する。<br>
+      AIと自動化によって、事業の「裏側」を仕組み化する<br>
+      AIオペレーションチーム構築サービス。
+    </div>
+
+    <div class="cover-vision-block">
+      <div class="cover-vision-label">Vision</div>
+      <div class="cover-vision-text">
+        熱い思いを持った事業者が、オペレーションや雑務に追われて疲弊するのではなく、<br>
+        ビジョンの実現・顧客への価値提供に集中できる状態をつくる。<br>
+        それによって、社会全体の「ワクワクする時間の総量」を最大化する。
+      </div>
+    </div>
+  </div>
+  <div class="cover-footer">
+    <div class="cover-footer-l">2026年3月</div>
+    <div class="cover-footer-r">TomoRevo &nbsp;|&nbsp; 新規事業提案書</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE 2: 目次
+================================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-bar"></div>
+    <div class="header-inner">
+      <div class="header-brand">TomoRevo</div>
+      <div class="header-doc">新規事業提案書</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="sec-label">Contents</div>
+    <div class="page-title">目次</div>
+    <div class="title-rule"></div>
+
+    <div class="toc-intro">
+      本資料は、少人数事業の「裏側」を仕組み化する新規事業「TomoRevo」の事業提案書です。
+      課題の構造から、ソリューション・提供価値・事業モデル・ビジョンまでを体系的に整理しています。
+    </div>
+
+    <table class="toc-table">
+      <tr>
+        <td class="toc-num-cell"><div class="toc-num-inner">01</div></td>
+        <td class="toc-title-cell">
+          <div class="toc-title-text">解決すべき課題</div>
+          <div class="toc-sub-text">小規模事業者が抱える「忙しい・変われない」の構造的問題</div>
+        </td>
+        <td class="toc-page-cell"><div class="toc-page-num">P. 3</div></td>
+      </tr>
+      <tr>
+        <td class="toc-num-cell"><div class="toc-num-inner">02</div></td>
+        <td class="toc-title-cell">
+          <div class="toc-title-text">TomoRevoのソリューション</div>
+          <div class="toc-sub-text">「AIオペレーションチーム」とは何か。サービスの4つの柱。</div>
+        </td>
+        <td class="toc-page-cell"><div class="toc-page-num">P. 4</div></td>
+      </tr>
+      <tr>
+        <td class="toc-num-cell"><div class="toc-num-inner">03</div></td>
+        <td class="toc-title-cell">
+          <div class="toc-title-text">提供する価値</div>
+          <div class="toc-sub-text">事業者・チーム・組織への具体的な変化と波及効果</div>
+        </td>
+        <td class="toc-page-cell"><div class="toc-page-num">P. 5</div></td>
+      </tr>
+      <tr>
+        <td class="toc-num-cell"><div class="toc-num-inner">04</div></td>
+        <td class="toc-title-cell">
+          <div class="toc-title-text">実績・導入事例</div>
+          <div class="toc-sub-text">オンライン顔ヨガ事業・オンラインフィットネス事業での実証と知見</div>
+        </td>
+        <td class="toc-page-cell"><div class="toc-page-num">P. 6</div></td>
+      </tr>
+      <tr>
+        <td class="toc-num-cell"><div class="toc-num-inner">05</div></td>
+        <td class="toc-title-cell">
+          <div class="toc-title-text">代表プロフィール</div>
+          <div class="toc-sub-text">藤田裕二 — 職歴・役職・TomoRevo立ち上げの動機</div>
+        </td>
+        <td class="toc-page-cell"><div class="toc-page-num">P. 7</div></td>
+      </tr>
+      <tr>
+        <td class="toc-num-cell"><div class="toc-num-inner">06</div></td>
+        <td class="toc-title-cell">
+          <div class="toc-title-text">ビジネスモデル</div>
+          <div class="toc-sub-text">ターゲット・収益設計・競合優位性・展開フェーズ</div>
+        </td>
+        <td class="toc-page-cell"><div class="toc-page-num">P. 8</div></td>
+      </tr>
+      <tr>
+        <td class="toc-num-cell"><div class="toc-num-inner">07</div></td>
+        <td class="toc-title-cell">
+          <div class="toc-title-text">ビジョンと社会への想い</div>
+          <div class="toc-sub-text">「ワクワクする時間の総量を最大化する」という思想と事業の接続</div>
+        </td>
+        <td class="toc-page-cell"><div class="toc-page-num">P. 9</div></td>
+      </tr>
+    </table>
+
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer">
+    <div class="footer-note">TomoRevo — 新規事業提案書</div>
+    <div class="footer-page">2 / 9</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE 3: 課題
+================================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-bar"></div>
+    <div class="header-inner">
+      <div class="header-brand">TomoRevo</div>
+      <div class="header-doc">新規事業提案書</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="sec-label">01 &mdash; Problem</div>
+    <div class="page-title">「忙しいから変われない」<br>少人数事業の構造的課題</div>
+    <div class="title-rule"></div>
+
+    <div class="body-text">
+      熱い思いと確かなサービス力を持つ小規模事業者・1人社長・少人数チームが、
+      本来集中すべき「価値創造」ではなく「業務処理」に時間を奪われ続けている。
+      これは個人の能力や意識の問題ではなく、事業運営の構造的な問題である。
+    </div>
+
+    <div class="sub-head">経営者の時間を侵食している業務（代表例）</div>
+    <div class="task-grid">
+      <div class="task-chip">予約管理</div>
+      <div class="task-chip">顧客対応</div>
+      <div class="task-chip">講師・メンバー連携</div>
+      <div class="task-chip">資料作成</div>
+      <div class="task-chip">ナレッジ整理</div>
+      <div class="task-chip">会議・議事録整理</div>
+      <div class="task-chip">タスク管理</div>
+      <div class="task-chip">マーケ数値集計</div>
+      <div class="task-chip">進捗管理・報告</div>
+    </div>
+
+    <div class="loop-box">
+      <div class="loop-label">構造として生まれる「負の連鎖」</div>
+      <div class="loop-flow">
+        <div class="loop-node">忙しい</div>
+        <div class="loop-arrow">&rarr;</div>
+        <div class="loop-node">改善できない</div>
+        <div class="loop-arrow">&rarr;</div>
+        <div class="loop-node">スケールしない</div>
+        <div class="loop-arrow">&rarr;</div>
+        <div class="loop-node">疲弊する</div>
+        <div class="loop-arrow">&rarr;</div>
+        <div class="loop-node">また忙しい</div>
+      </div>
+    </div>
+
+    <div class="key-box">
+      <div class="key-box-text">
+        これは<strong>「能力や情熱の問題」ではない。</strong><br>
+        事業運営の仕組み・<strong>オペレーション設計・ナレッジ活用の設計がボトルネック</strong>になっている、
+        構造的な問題。解くべきは「人」ではなく「仕組み」。
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer">
+    <div class="footer-note">TomoRevo — 新規事業提案書</div>
+    <div class="footer-page">3 / 9</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE 4: ソリューション
+================================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-bar"></div>
+    <div class="header-inner">
+      <div class="header-brand">TomoRevo</div>
+      <div class="header-doc">新規事業提案書</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="sec-label">02 &mdash; Solution</div>
+    <div class="page-title">TomoRevoのソリューション<br>「AIオペレーションチーム」の構築</div>
+    <div class="title-rule"></div>
+
+    <div class="body-text">
+      単なるAI導入支援ではない。事業全体のオペレーション設計・ナレッジ設計・情報整理・
+      AI活用導線の設計まで包括的に行う、「仕組みごとつくる」伴走型支援サービスである。
+    </div>
+
+    <div class="before-after">
+      <div class="ba-col ba-before">
+        <div class="ba-label">Before &nbsp;—&nbsp; 現状</div>
+        <ul class="ba-list neg">
+          <li>社長に判断・作業が集中する</li>
+          <li>業務が属人的で引き継げない</li>
+          <li>ナレッジが散逸し、消えていく</li>
+          <li>改善サイクルが回らない</li>
+          <li>外注してもすぐ頓挫する</li>
+        </ul>
+      </div>
+      <div class="ba-divider">&rarr;</div>
+      <div class="ba-col ba-after">
+        <div class="ba-label">After &nbsp;—&nbsp; TomoRevo導入後</div>
+        <ul class="ba-list pos">
+          <li>業務が自動化・仕組み化される</li>
+          <li>ナレッジが資産として蓄積される</li>
+          <li>チームが自律的に動ける</li>
+          <li>意思決定の質と速度が向上する</li>
+          <li>社長が本質業務に集中できる</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sub-head">サービスの4つの柱</div>
+    <div class="pillars">
+      <div class="pillar-card">
+        <div class="pillar-no">Pillar 01</div>
+        <div class="pillar-title">事業オペレーション設計</div>
+        <ul class="pillar-list">
+          <li>業務フロー・予約・顧客管理導線の整理</li>
+          <li>情報構造の整理と可視化</li>
+          <li>ツールの最適な組み合わせ設計</li>
+        </ul>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-no">Pillar 02</div>
+        <div class="pillar-title">自動化の構築</div>
+        <ul class="pillar-list">
+          <li>予約・顧客対応の自動化</li>
+          <li>リマインド・管理業務の効率化</li>
+          <li>週次レポートの自動生成</li>
+        </ul>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-no">Pillar 03</div>
+        <div class="pillar-title">AIオペレーションチーム構築</div>
+        <ul class="pillar-list">
+          <li>議事録自動作成・タスク抽出</li>
+          <li>PDCAナレッジの蓄積と整理</li>
+          <li>社内向けチャットボットの整備</li>
+        </ul>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-no">Pillar 04</div>
+        <div class="pillar-title">AI活用文化の定着支援</div>
+        <ul class="pillar-list">
+          <li>チーム全体へのAI活用浸透</li>
+          <li>思考補助・業務補助として設計</li>
+          <li>人の意思決定力を高める導線づくり</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer">
+    <div class="footer-note">TomoRevo — 新規事業提案書</div>
+    <div class="footer-page">4 / 9</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE 5: 提供価値
+================================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-bar"></div>
+    <div class="header-inner">
+      <div class="header-brand">TomoRevo</div>
+      <div class="header-doc">新規事業提案書</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="sec-label">03 &mdash; Value Proposition</div>
+    <div class="page-title">提供する価値<br>事業者・チーム・組織への変化</div>
+    <div class="title-rule"></div>
+
+    <table class="value-table">
+      <thead>
+        <tr>
+          <th class="td-no">#</th>
+          <th class="td-title">提供価値</th>
+          <th>具体的な変化</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-no">01</td>
+          <td class="td-title">少人数でも会社のように事業が回る</td>
+          <td>業務フローと自動化により、人数に依存しない事業運営が実現する。</td>
+        </tr>
+        <tr>
+          <td class="td-no">02</td>
+          <td class="td-title">社長がオペレーションから解放される</td>
+          <td>本質業務・ビジョン実現・顧客価値提供に時間とエネルギーを使える状態になる。</td>
+        </tr>
+        <tr>
+          <td class="td-no">03</td>
+          <td class="td-title">意思決定の質と速度が向上する</td>
+          <td>蓄積されたナレッジと過去事例が、より良い判断を高速に引き出す。</td>
+        </tr>
+        <tr>
+          <td class="td-no">04</td>
+          <td class="td-title">チームが自律的に提案できるようになる</td>
+          <td>AIで整理・ブラッシュアップした提案を持ち込む文化が組織に育つ。</td>
+        </tr>
+        <tr>
+          <td class="td-no">05</td>
+          <td class="td-title">経験・知識が組織の資産として残る</td>
+          <td>成功事例・失敗事例・議事録・PDCAが蓄積され、継続的に活用される。</td>
+        </tr>
+        <tr>
+          <td class="td-no">06</td>
+          <td class="td-title">チーム全体のAI活用力が高まる</td>
+          <td>伴走型支援により、チームごとAI時代の仕事の仕方へ移行できる。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sub-head">組織の意思決定構造の変化</div>
+    <div class="org-compare">
+      <div class="org-panel org-panel-now">
+        <div class="org-panel-label">現状 &mdash; 社長にすべてが集中</div>
+        <div class="org-flow">
+          <div class="org-node">社員・メンバー</div>
+          <div class="org-conn">&#8595;&nbsp; 直接相談・提出</div>
+          <div class="org-node node-problem">社長（判断集中・疲弊）</div>
+        </div>
+        <div class="org-remark remark-neg">
+          — 提案ハードルが高い<br>
+          — 意思決定が詰まりやすい<br>
+          — 改善サイクルが遅い
+        </div>
+      </div>
+      <div class="org-arrow-col">&rarr;</div>
+      <div class="org-panel org-panel-ideal">
+        <div class="org-panel-label">理想 &mdash; AIが整流器として機能する</div>
+        <div class="org-flow">
+          <div class="org-node">社員・メンバー</div>
+          <div class="org-conn">&#8595;&nbsp; AIで整理・改善</div>
+          <div class="org-node node-ai">AI（提案整理・ナレッジ参照）</div>
+          <div class="org-conn">&#8595;&nbsp; 質の上がった提案</div>
+          <div class="org-node node-exec">幹部・社長（確認・承認）</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer">
+    <div class="footer-note">TomoRevo — 新規事業提案書</div>
+    <div class="footer-page">5 / 9</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE 6: 実績
+================================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-bar"></div>
+    <div class="header-inner">
+      <div class="header-brand">TomoRevo</div>
+      <div class="header-doc">新規事業提案書</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="sec-label">04 &mdash; Track Record</div>
+    <div class="page-title">実証済みの実績<br>導入事例と得られた知見</div>
+    <div class="title-rule"></div>
+
+    <div class="body-text">
+      TomoRevoは構想段階ではなく、すでに実際の事業者への支援実績を有する。
+      この経験と知見を基盤として、少人数事業全体への展開を図る。
+    </div>
+
+    <div class="case-block">
+      <div class="case-head">
+        <div class="case-badge">Case 01</div>
+        <div class="case-client-name">オンライン顔ヨガサービス（1人社長）</div>
+      </div>
+      <div class="case-body">
+        <div class="case-item">
+          <div class="case-bullet"></div>
+          <div class="case-text">予約フローの自動化・オペレーション設計</div>
+        </div>
+        <div class="case-item">
+          <div class="case-bullet"></div>
+          <div class="case-text">ランディングページ（LP）の企画・制作</div>
+        </div>
+        <div class="case-item">
+          <div class="case-bullet"></div>
+          <div class="case-text">講座テキスト・コンテンツの作成支援</div>
+        </div>
+        <div class="case-item">
+          <div class="case-bullet"></div>
+          <div class="case-text">既存ツールを活用した全体最適オペレーション構築</div>
+        </div>
+        <div class="case-item">
+          <div class="case-bullet"></div>
+          <div class="case-text">顧客視点・社長視点の両面からの仕組み設計</div>
+        </div>
+        <div class="case-item">
+          <div class="case-bullet"></div>
+          <div class="case-text">AIを活用した高速な構築・改善サイクルの確立</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-block">
+      <div class="case-head">
+        <div class="case-badge">Case 02</div>
+        <div class="case-client-name">オンラインフィットネス・オンラインスクール（年商4億円規模）</div>
+      </div>
+      <div class="case-body">
+        <div class="case-item">
+          <div class="case-bullet"></div>
+          <div class="case-text">マーケティング分析の自動化支援</div>
+        </div>
+        <div class="case-item">
+          <div class="case-bullet"></div>
+          <div class="case-text">業務効率化および顧客満足度向上のためのオリジナルサポートツールの開発</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-block">
+      <div class="insight-label">Core Insight &mdash; この経験から得た核心的な知見</div>
+      <div class="insight-text">
+        小規模事業者が直面するボトルネックは、個別業務の非効率ではなく、
+        <strong>オペレーション全体の設計思想の欠如</strong>にある。
+        個別のツールを導入するのではなく、<strong>事業の仕組みごと設計する</strong>ことではじめて、
+        本質的かつ持続的な変化が生まれる。
+      </div>
+    </div>
+
+    <div class="sub-head">TomoRevoが他社サービスと異なる点</div>
+    <ul class="dot-list">
+      <li>「AI導入支援」ではなく、<strong>「事業オペレーション設計」を起点</strong>とした差別化ポジション</li>
+      <li>ツールを販売するのではなく、<strong>事業が継続的に回る「仕組み」ごと提供する</strong></li>
+      <li>経営者視点と現場・顧客視点の両面を持ち、設計から実装・定着まで一貫して担う実行力</li>
+      <li>AIを使いこなすだけでなく、<strong>LP制作・コンテンツ制作・事業設計まで対応できる</strong>総合性</li>
+    </ul>
+
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer">
+    <div class="footer-note">TomoRevo — 新規事業提案書</div>
+    <div class="footer-page">6 / 9</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE 7: 代表プロフィール
+================================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-bar"></div>
+    <div class="header-inner">
+      <div class="header-brand">TomoRevo</div>
+      <div class="header-doc">新規事業提案書</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="sec-label">05 &mdash; Representative Profile</div>
+    <div class="page-title">代表プロフィール</div>
+    <div class="title-rule"></div>
+
+    <!-- 氏名・写真 -->
+    <div style="display: flex; gap: 8mm; align-items: flex-start; padding-bottom: 6mm; border-bottom: 1px solid var(--border); margin-bottom: 7mm;">
+      <img src="プロフ写真.jpg" alt="藤田裕二" style="width: 38mm; height: 38mm; object-fit: cover; object-position: center 60%; border-radius: 50%; flex-shrink: 0; border: 2px solid var(--border);" />
+      <div style="display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 1mm;">
+        <div style="font-size: 9px; letter-spacing: 0.15em; color: var(--accent); font-weight: 700; border-left: 2px solid var(--accent); padding-left: 4mm; margin-bottom: 5mm;">TomoRevo 代表</div>
+        <div style="font-family: 'Noto Serif JP', serif; font-size: 26px; font-weight: 600; color: var(--navy); line-height: 1; margin-bottom: 2mm;">藤田 裕二</div>
+        <div style="font-size: 10px; color: var(--text-sub); letter-spacing: 0.2em;">Fujita Yuji</div>
+      </div>
+    </div>
+
+    <!-- 職歴 -->
+    <div class="sub-head">主な職歴・役職</div>
+    <table style="width: 100%; border-collapse: collapse; margin: 4mm 0 7mm; font-size: 11px;">
+      <thead>
+        <tr>
+          <th style="background: var(--navy); color: #fff; padding: 3mm 5mm; text-align: left; font-size: 9.5px; font-weight: 500; letter-spacing: 0.06em; width: 8mm;">#</th>
+          <th style="background: var(--navy); color: #fff; padding: 3mm 5mm; text-align: left; font-size: 9.5px; font-weight: 500; letter-spacing: 0.06em; width: 52mm;">所属・事業</th>
+          <th style="background: var(--navy); color: #fff; padding: 3mm 5mm; text-align: left; font-size: 9.5px; font-weight: 500; letter-spacing: 0.06em;">役職・担当</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 4mm 5mm; border-bottom: 1px solid var(--border-light); color: var(--text-sub); font-size: 10px;">01</td>
+          <td style="padding: 4mm 5mm; border-bottom: 1px solid var(--border-light); color: var(--navy); font-weight: 700;">広告会社</td>
+          <td style="padding: 4mm 5mm; border-bottom: 1px solid var(--border-light); color: var(--text-mid);">CTO（最高技術責任者）</td>
+        </tr>
+        <tr style="background: var(--bg-soft);">
+          <td style="padding: 4mm 5mm; border-bottom: 1px solid var(--border-light); color: var(--text-sub); font-size: 10px;">02</td>
+          <td style="padding: 4mm 5mm; border-bottom: 1px solid var(--border-light); color: var(--navy); font-weight: 700;">フィットネス系ベンチャー企業</td>
+          <td style="padding: 4mm 5mm; border-bottom: 1px solid var(--border-light); color: var(--text-mid);">業務効率化リーダー</td>
+        </tr>
+        <tr>
+          <td style="padding: 4mm 5mm; border-bottom: 1px solid var(--border-light); color: var(--text-sub); font-size: 10px;">03</td>
+          <td style="padding: 4mm 5mm; border-bottom: 1px solid var(--border-light); color: var(--navy); font-weight: 700;">マーケティング部門</td>
+          <td style="padding: 4mm 5mm; border-bottom: 1px solid var(--border-light); color: var(--text-mid);">YouTubeチームリーダー</td>
+        </tr>
+        <tr style="background: var(--bg-soft);">
+          <td style="padding: 4mm 5mm; border-bottom: 1px solid var(--border-light); color: var(--text-sub); font-size: 10px;">04</td>
+          <td style="padding: 4mm 5mm; border-bottom: 1px solid var(--border-light); color: var(--navy); font-weight: 700;">パーソナルジム</td>
+          <td style="padding: 4mm 5mm; border-bottom: 1px solid var(--border-light); color: var(--text-mid);">2店舗 運営・経営</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 出発点 -->
+    <div class="sub-head">出発点となった経歴</div>
+    <div class="body-text">
+      不動産営業およびシステムエンジニアとしての経験を原点に、現場の課題解決と技術実装の両面を体得。
+      事業運営・マーケティング・技術開発にわたる複合的な実務経験が、TomoRevoの事業設計の土台。
+    </div>
+
+    <!-- 動機 -->
+    <div class="insight-block">
+      <div class="insight-label">TomoRevo 立ち上げの背景と動機</div>
+      <div class="insight-text">
+        熱い思いを持った事業者の可能性を最大化し、ワクワクと生きる大人を増やしたい。<br>
+        子どもたちが大人に憧れて育つ社会を創る——そのビジョンを実現するために、TomoRevoを立ち上げた。
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer">
+    <div class="footer-note">TomoRevo — 新規事業提案書</div>
+    <div class="footer-page">7 / 9</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE 8: ビジネスモデル
+================================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-bar"></div>
+    <div class="header-inner">
+      <div class="header-brand">TomoRevo</div>
+      <div class="header-doc">新規事業提案書</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="sec-label">06 &mdash; Business Model</div>
+    <div class="page-title">ビジネスモデル<br>サービス構成・収益設計・展開フェーズ</div>
+    <div class="title-rule"></div>
+
+    <div class="two-col" style="margin-bottom: 5mm;">
+      <div>
+        <div class="sub-head">ターゲット顧客</div>
+        <ul class="dot-list">
+          <li>1人社長・少人数チーム（概ね10名以下）</li>
+          <li>オンラインサービス・コーチング・スクール系事業者</li>
+          <li>想いはあるが業務処理に追われている経営者</li>
+          <li>AIへの関心はあるが独力では使いこなせない層</li>
+        </ul>
+      </div>
+      <div>
+        <div class="sub-head">競合との差別化</div>
+        <ul class="dot-list">
+          <li>ツール導入支援（点）ではなく仕組み設計（面）</li>
+          <li>コンサル×実装×伴走の一体型支援</li>
+          <li>AI活用文化の定着まで責任を持つ</li>
+          <li>「使いこなせる状態」を保証する伴走モデル</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sub-head">収益モデル（想定）</div>
+    <table class="revenue-table">
+      <thead>
+        <tr>
+          <th>サービスカテゴリ</th>
+          <th>主な提供内容</th>
+          <th>提供形態</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>オペレーション設計</td>
+          <td>業務フロー・情報構造・ツール設計</td>
+          <td>初期プロジェクト型</td>
+        </tr>
+        <tr>
+          <td>自動化・AI構築</td>
+          <td>予約・対応・レポートの自動化</td>
+          <td>初期プロジェクト型</td>
+        </tr>
+        <tr class="row-highlight">
+          <td>AIオペレーションチーム伴走</td>
+          <td>継続運用・改善・チーム浸透支援</td>
+          <td>月額ストック型（継続支援）</td>
+        </tr>
+        <tr>
+          <td>AI活用文化定着支援</td>
+          <td>チームへのAI活用研修・定着支援</td>
+          <td>ワークショップ・伴走型</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sub-head">展開フェーズ</div>
+    <div class="phases">
+      <div class="phase-card current">
+        <div class="phase-no">Phase 01 <span class="phase-now-badge">現在</span></div>
+        <div class="phase-title">実証・事例構築</div>
+        <div class="phase-desc">
+          既存1社への支援を深化させ、再現性のある支援パッケージを設計。
+          成果事例・ナレッジを体系的に言語化する。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-no">Phase 02</div>
+        <div class="phase-title">横展開・パッケージ化</div>
+        <div class="phase-desc">
+          コーチング・スクール・オンラインサービス系の類似事業者へ展開。
+          成功事例を積み上げ、ブランドと信頼を確立する。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-no">Phase 03</div>
+        <div class="phase-title">スケール・プラットフォーム化</div>
+        <div class="phase-desc">
+          業界特化型オペレーション設計テンプレートと
+          AIチームプラットフォームの開発・提供へ展開。
+        </div>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer">
+    <div class="footer-note">TomoRevo — 新規事業提案書</div>
+    <div class="footer-page">8 / 9</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE 8: ビジョン
+================================================================ -->
+<div class="page vision-page">
+  <div class="vision-top-bar"></div>
+  <div class="vision-header">
+    <div class="vision-header-brand">TomoRevo</div>
+    <div class="vision-header-doc">新規事業提案書</div>
+  </div>
+  <div class="vision-body">
+    <div class="vision-sec-label">07 &mdash; Vision &amp; Philosophy</div>
+    <div class="vision-headline">
+      「ワクワクする時間の総量」を、<br>
+      <em>社会全体で最大化する。</em>
+    </div>
+    <div class="vision-rule"></div>
+
+    <div class="vision-paragraph">
+      熱い思いを持った事業者が、その想いを形にし続けられるとき、<br>
+      その事業に触れるユーザーの人生もまた豊かになる。<br>
+      豊かな大人が増えるとき、子供たちは自然と大人に憧れるようになる。<br><br>
+      TomoRevoが創りたいのは、そういう連鎖。
+    </div>
+
+    <div class="vision-quote">
+      <div class="vision-quote-main">「ともに革命の灯火を灯す」 &mdash;&mdash; TomoRevo</div>
+      <div class="vision-quote-sub">
+        事業者の背中を押すだけでなく、その先のユーザー・社会まで視野に入れた事業を創る。<br>
+        TomoRevoという名前に込めた想いと、事業の構造は一本の線でつながっている。
+      </div>
+    </div>
+
+    <div class="vision-pillars">
+      <div class="vision-pillar">
+        <div class="vp-no">I &mdash; For Entrepreneurs</div>
+        <div class="vp-title">事業者の解放</div>
+        <div class="vp-text">オペレーションから解放された事業者が、本来の情熱と創造性に集中できる。</div>
+      </div>
+      <div class="vision-pillar">
+        <div class="vp-no">II &mdash; For Users</div>
+        <div class="vp-title">価値の連鎖</div>
+        <div class="vp-text">事業者の幸福度が高まるほど、ユーザーへの価値提供の質と深さも増していく。</div>
+      </div>
+      <div class="vision-pillar">
+        <div class="vp-no">III &mdash; For Society</div>
+        <div class="vp-title">社会への波及</div>
+        <div class="vp-text">子供たちが「大人って楽しそうだ」と思える社会の実現を、事業を通じて目指す。</div>
+      </div>
+    </div>
+  </div>
+  <div class="vision-footer">
+    <div>TomoRevo &nbsp;|&nbsp; 新規事業提案書 &nbsp;|&nbsp; 2026年3月</div>
+    <div>9 / 9</div>
+
+  </div>
+</div>
+
+</body>
+</html>
