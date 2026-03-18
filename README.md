@@ -17,6 +17,7 @@
 | `/sync-journal` | Notionジャーナルの最新エントリを取得し、CLAUDE.mdとメモリを自動更新 | ジャーナル記録後 |
 | `/update-profile` | 対話で得た新情報をオーナープロファイルに反映 | 随時 |
 | `/weekly-review` | 1週間分のジャーナル+タスクを総合レビュー（思考の癖トラッキング付き） | 週1回 |
+| `/post-sns` | SNS投稿コンテンツの作成・スケジューリング支援 | 投稿時 |
 
 ## ファイル構成
 
@@ -28,8 +29,9 @@ team-TomoRevo/
 │   ├── commands/
 │   │   ├── sync-journal.md    # /sync-journal コマンド定義
 │   │   ├── update-profile.md  # /update-profile コマンド定義
-│   │   └── weekly-review.md   # /weekly-review コマンド定義
-│   └── settings.local.json
+│   │   ├── weekly-review.md   # /weekly-review コマンド定義
+│   │   └── post-sns.md        # /post-sns コマンド定義
+│   └── settings.local.json    # MCP権限設定（Notion・Google Sheets）
 └── secretary/
     ├── CLAUDE.md              # 秘書エージェント設定
     └── briefings/             # ブリーフィング保存先
