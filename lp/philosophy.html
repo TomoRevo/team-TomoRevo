@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TomoRevo — 理念</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; font-size: 16px; }
+a { color: inherit; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #fff;
+  text-align: center;
+  padding: 100px 20px 80px;
+}
+.hero-logo { margin-bottom: 30px; }
+.hero-logo img { height: 60px; }
+.hero h1 { font-size: 48px; font-weight: 900; color: #e8b84b; margin-bottom: 16px; letter-spacing: 4px; }
+.hero p { font-size: 18px; opacity: 0.7; max-width: 500px; margin: 0 auto; }
+
+/* Section */
+.section { padding: 80px 20px; }
+.container { max-width: 700px; margin: 0 auto; }
+.section-alt { background: #f8f6f3; }
+.section-dark { background: #1a1a2e; color: #fff; }
+
+/* Typography */
+h2 { font-size: 16px; font-weight: 500; color: #c17a2a; letter-spacing: 3px; margin-bottom: 12px; text-align: center; }
+h3 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 30px; line-height: 1.5; }
+.section-dark h2 { color: #e8b84b; }
+.section-dark h3 { color: #fff; }
+p { margin-bottom: 16px; }
+
+/* Mission Flow */
+.mission-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 40px 0;
+}
+.mission-step {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+}
+.mission-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #e8b84b;
+  color: #1a1a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.mission-text strong { display: block; font-size: 17px; margin-bottom: 2px; }
+.mission-text span { font-size: 14px; opacity: 0.6; }
+.section-dark .mission-text span { opacity: 0.5; }
+.mission-arrow {
+  text-align: center;
+  color: #e8b84b;
+  font-size: 20px;
+  opacity: 0.4;
+}
+
+/* Value Cards */
+.value-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 30px;
+}
+.value-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+  border-left: 4px solid #e8b84b;
+}
+.value-card h4 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #c17a2a;
+  margin-bottom: 8px;
+}
+.value-card p { font-size: 15px; color: #666; margin: 0; }
+
+/* Why Section */
+.why-text {
+  font-size: 18px;
+  text-align: center;
+  line-height: 2;
+}
+.why-highlight {
+  font-size: 22px;
+  font-weight: 700;
+  color: #c17a2a;
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* Footer */
+.footer {
+  background: #1a1a2e;
+  color: #fff;
+  text-align: center;
+  padding: 50px 20px;
+}
+.footer-tagline {
+  font-size: 14px;
+  letter-spacing: 2px;
+  opacity: 0.4;
+  margin-top: 16px;
+}
+.footer-back {
+  display: inline-block;
+  margin-top: 30px;
+  color: rgba(255,255,255,0.5);
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.footer-back:hover { color: #e8b84b; border-color: #e8b84b; }
+
+@media (min-width: 768px) {
+  .hero h1 { font-size: 56px; }
+  .value-cards { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-logo"><img src="logo.png" alt="TomoRevo"></div>
+  <h1>ワクワクの追求</h1>
+  <p>TomoRevoの全ての活動は、この一言に集約されます。</p>
+</section>
+
+<!-- Mission -->
+<section class="section section-dark">
+  <div class="container">
+    <h2>MISSION</h2>
+    <h3>全ての人々のワクワクの総量を<br>最大化することに貢献する。</h3>
+    <p style="text-align:center;opacity:0.7;font-size:15px;">まず自分自身がワクワクと生きること。<br>その姿が仲間に伝わり、お客様に届き、お客様の先にいる人へと広がっていく。</p>
+
+    <div class="mission-flow">
+      <div class="mission-step">
+        <div class="mission-num">1</div>
+        <div class="mission-text">
+          <strong>自分自身</strong>
+          <span>自分がワクワクと生きていなければ、誰かを導くことはできない</span>
+        </div>
+      </div>
+      <div class="mission-arrow">↓</div>
+      <div class="mission-step">
+        <div class="mission-num">2</div>
+        <div class="mission-text">
+          <strong>社員・仲間</strong>
+          <span>一緒に働く仲間がワクワクしていること。仕事が自己実現の場であること</span>
+        </div>
+      </div>
+      <div class="mission-arrow">↓</div>
+      <div class="mission-step">
+        <div class="mission-num">3</div>
+        <div class="mission-text">
+          <strong>お客様</strong>
+          <span>大切なことに集中できる時間を取り戻し、事業を通じてワクワクと生きる</span>
+        </div>
+      </div>
+      <div class="mission-arrow">↓</div>
+      <div class="mission-step">
+        <div class="mission-num">4</div>
+        <div class="mission-text">
+          <strong>お客様のお客様</strong>
+          <span>お客様が輝くことで、その先にいる人たちにも良い影響が連鎖する</span>
+        </div>
+      </div>
+      <div class="mission-arrow">↓</div>
+      <div class="mission-step">
+        <div class="mission-num">5</div>
+        <div class="mission-text">
+          <strong>社会</strong>
+          <span>ワクワクと生きる大人が増えることで、子供たちが未来に希望を持てる社会へ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Vision -->
+<section class="section">
+  <div class="container">
+    <h2>VISION</h2>
+    <h3>子供たちが大人に憧れて育つ<br>社会の実現。</h3>
+    <p style="text-align:center;color:#666;">ひとりひとりの大人が人生の舵を自分で握り、<br>日々ワクワクの感情に満ちた人生を過ごしている。</p>
+    <p style="text-align:center;color:#666;">その姿を見た子供たちが<br>「大人になるのが楽しみだ」と思える世界。</p>
+  </div>
+</section>
+
+<!-- Values -->
+<section class="section section-alt">
+  <div class="container">
+    <h2>VALUES</h2>
+    <h3>大切にすること</h3>
+    <div class="value-cards">
+      <div class="value-card">
+        <h4>愛</h4>
+        <p>大切な人への想いやりの心。自分自身を愛し、他者に対しても同じように愛を持って関わる。</p>
+      </div>
+      <div class="value-card">
+        <h4>感謝</h4>
+        <p>身の回りに起こる全ての出来事に対して、自分自身の成長として受け止める。</p>
+      </div>
+      <div class="value-card">
+        <h4>ワクワク</h4>
+        <p>これからの未来に希望を抱き、日々の選択を自分のビジョンに沿って積み重ねていく。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why IT Coaching -->
+<section class="section">
+  <div class="container">
+    <h2>WHY IT COACHING</h2>
+    <h3>なぜ「ITコーチング」なのか</h3>
+    <div class="why-text">
+      テクノロジーは手段です。目的ではありません。<br><br>
+      私たちがITの力を使うのは、<br>
+      あなたが<strong>本当に大切なこと</strong>に<br>
+      集中できる時間を生み出すため。<br><br>
+      面倒な作業から解放されて生まれた時間で、<br>
+      あなたはお客様ともっと深く向き合える。<br>
+      家族ともっと一緒にいられる。<br>
+      自分自身をもっと大切にできる。
+    </div>
+    <p class="why-highlight">ワクワクと生きる大人を、<br>ひとりずつ増やしていく。<br>それがTomoRevoの仕事です。</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<section class="footer">
+  <img src="logo.png" alt="TomoRevo" style="height:50px;opacity:0.5;">
+  <p class="footer-tagline">ともに革命の灯火を灯す</p>
+  <a href="index.html" class="footer-back">← サービス紹介ページに戻る</a>
+</section>
+
+</body>
+</html>
