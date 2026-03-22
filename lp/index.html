@@ -27,15 +27,34 @@ a { color: inherit; }
 .section-alt { background: #f8f6f3; }
 
 /* First View */
-.fv { background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #2a1810 85%, #c17a2a 100%); color: #fff; text-align: center; padding: 100px 20px 80px; position: relative; }
-.fv::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: linear-gradient(180deg, transparent, rgba(232,184,75,0.15)); }
-.fv-logo { font-size: 14px; letter-spacing: 3px; opacity: 0.7; margin-bottom: 20px; }
-.fv-target { font-size: 14px; opacity: 0.6; margin-bottom: 30px; }
-.fv h1 { font-size: 28px; font-weight: 700; line-height: 1.5; margin-bottom: 20px; }
+.fv { background: #0a0a1a; color: #fff; text-align: center; padding: 100px 20px 80px; position: relative; overflow: hidden; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.fv-bg { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;
+  background: linear-gradient(180deg, #0a0a1a 0%, #0a0a1a 100%);
+  animation: sunrise-bg 3s ease-out 0.5s forwards; }
+@keyframes sunrise-bg {
+  0% { background: linear-gradient(180deg, #0a0a1a 0%, #0a0a1a 100%); }
+  30% { background: linear-gradient(180deg, #0a0a1a 0%, #16213e 40%, #1a1a2e 100%); }
+  60% { background: linear-gradient(180deg, #1a1a2e 0%, #16213e 30%, #2a1810 70%, #6b3a1a 100%); }
+  100% { background: linear-gradient(180deg, #1a1a2e 0%, #16213e 40%, #2a1810 75%, #c17a2a 100%); }
+}
+.fv-glow { position: absolute; bottom: -80px; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; border-radius: 50%; background: radial-gradient(ellipse, rgba(232,184,75,0.4) 0%, rgba(232,184,75,0) 70%); opacity: 0; animation: glow-appear 2s ease-out 1.5s forwards; z-index: 0; }
+@keyframes glow-appear { to { opacity: 1; bottom: -40px; } }
+.fv > * { position: relative; z-index: 1; }
+.fv-logo { font-size: 14px; letter-spacing: 3px; margin-bottom: 20px; }
+.fv-logo img { opacity: 0; transform: translateY(40px); animation: logo-rise 2s ease-out 0.8s forwards; filter: drop-shadow(0 0 30px rgba(232,184,75,0.5)); }
+@keyframes logo-rise {
+  0% { opacity: 0; transform: translateY(40px); filter: drop-shadow(0 0 10px rgba(232,184,75,0.2)); }
+  60% { opacity: 1; transform: translateY(-5px); filter: drop-shadow(0 0 40px rgba(232,184,75,0.6)); }
+  100% { opacity: 1; transform: translateY(0); filter: drop-shadow(0 0 20px rgba(232,184,75,0.3)); }
+}
+.fv-logo span { display: block; opacity: 0; animation: fade-up 1s ease-out 2s forwards; font-size: 14px; letter-spacing: 3px; opacity: 0; }
+.fv-target { font-size: 14px; opacity: 0; margin-bottom: 30px; animation: fade-up 1s ease-out 2.3s forwards; }
+.fv h1 { font-size: 28px; font-weight: 700; line-height: 1.5; margin-bottom: 20px; opacity: 0; animation: fade-up 1s ease-out 2.6s forwards; }
 .fv h1 span { color: #e8b84b; }
-.fv-sub { font-size: 15px; opacity: 0.8; margin-bottom: 40px; }
-.fv-cta { display: inline-block; background: #e8b84b; color: #1a1a2e; padding: 16px 40px; border-radius: 50px; font-weight: 700; font-size: 15px; text-decoration: none; transition: transform 0.2s; }
+.fv-sub { font-size: 15px; margin-bottom: 40px; opacity: 0; animation: fade-up 1s ease-out 2.9s forwards; }
+.fv-cta { display: inline-block; background: #e8b84b; color: #1a1a2e; padding: 16px 40px; border-radius: 50px; font-weight: 700; font-size: 15px; text-decoration: none; transition: transform 0.2s; opacity: 0; animation: fade-up 1s ease-out 3.2s forwards; }
 .fv-cta:hover { transform: scale(1.05); }
+@keyframes fade-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Section Title */
 .section-title { font-size: 24px; font-weight: 700; text-align: center; margin-bottom: 40px; line-height: 1.5; }
@@ -160,7 +179,9 @@ a { color: inherit; }
 
 <!-- First View -->
 <section class="fv">
-  <div class="fv-logo"><img src="logo.png" alt="TomoRevo" style="height:60px;margin-bottom:10px;"><br>TomoRevo</div>
+  <div class="fv-bg"></div>
+  <div class="fv-glow"></div>
+  <div class="fv-logo"><img src="logo.png" alt="TomoRevo" style="height:70px;margin-bottom:10px;"><span>TomoRevo</span></div>
   <p class="fv-target">「好きなことで始めた事業なのに、<br class="sp-only">事務作業ばかりで1日が終わる」<br>そんなあなたへ。</p>
   <h1><span>話すだけ</span>で、<br class="sp-only">事業の仕組みが整っていく。<br>ITコーチングという<br class="sp-only">新しい選択肢。</h1>
   <p class="fv-sub">対話であなたの想いを引き出して、仕組みまで全部つくる伴走サービス</p>
