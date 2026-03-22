@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TomoRevo — ITコーチング プレゼンテーション</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans JP', sans-serif; background: #1a1a2e; color: #fff; overflow: hidden; }
+
+/* Slide System */
+.slide { width: 100vw; height: 100vh; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 60px 80px; position: relative; }
+.slide.active { display: flex; }
+.slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 13px; opacity: 0.3; }
+
+/* Navigation */
+.nav-hint { position: fixed; bottom: 20px; left: 30px; font-size: 12px; opacity: 0.2; z-index: 100; color: #fff; }
+
+/* Common Styles */
+h1 { font-size: 48px; font-weight: 900; line-height: 1.4; text-align: center; }
+h2 { font-size: 40px; font-weight: 700; line-height: 1.4; margin-bottom: 40px; text-align: center; }
+h3 { font-size: 28px; font-weight: 700; margin-bottom: 20px; }
+p { font-size: 22px; line-height: 1.8; }
+.accent { color: #e8b84b; }
+.small { font-size: 16px; opacity: 0.6; }
+.center { text-align: center; }
+.mt20 { margin-top: 20px; }
+.mt40 { margin-top: 40px; }
+
+/* Slide Types */
+.slide-dark { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); }
+.slide-light { background: #f8f6f3; color: #333; }
+.slide-accent { background: linear-gradient(135deg, #c17a2a 0%, #e8b84b 100%); color: #1a1a2e; }
+.slide-white { background: #fff; color: #333; }
+
+/* Components */
+.big-number { font-size: 120px; font-weight: 900; color: #e8b84b; line-height: 1; }
+.tag { display: inline-block; background: rgba(232,184,75,0.15); color: #e8b84b; padding: 6px 20px; border-radius: 30px; font-size: 16px; margin-bottom: 20px; }
+.slide-light .tag { background: rgba(193,122,42,0.1); color: #c17a2a; }
+
+.pain-item { font-size: 24px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left; max-width: 700px; width: 100%; }
+.slide-light .pain-item { border-color: rgba(0,0,0,0.08); }
+
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; max-width: 900px; width: 100%; }
+.compare-col { padding: 24px; border-radius: 12px; text-align: center; }
+.compare-col h4 { font-size: 16px; margin-bottom: 12px; opacity: 0.7; }
+.compare-col p { font-size: 15px; line-height: 1.7; }
+.compare-col.highlight { background: rgba(232,184,75,0.15); border: 2px solid #e8b84b; }
+.compare-col:not(.highlight) { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+
+.step-row { display: flex; gap: 40px; max-width: 900px; width: 100%; align-items: flex-start; }
+.step-num-big { font-size: 64px; font-weight: 900; color: #e8b84b; line-height: 1; flex-shrink: 0; }
+.step-text h3 { font-size: 24px; margin-bottom: 8px; }
+.step-text p { font-size: 17px; opacity: 0.7; }
+
+.roadmap-row { display: grid; grid-template-columns: 100px 1fr 1fr; gap: 16px; max-width: 850px; width: 100%; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.08); align-items: start; }
+.slide-light .roadmap-row { border-color: rgba(0,0,0,0.06); }
+.roadmap-row .month { font-weight: 700; color: #e8b84b; font-size: 18px; }
+.slide-light .roadmap-row .month { color: #c17a2a; }
+.roadmap-row .what { font-size: 16px; }
+.roadmap-row .change { font-size: 15px; opacity: 0.6; }
+.roadmap-header { font-weight: 700; opacity: 0.5; font-size: 14px; }
+
+.pricing-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; max-width: 900px; width: 100%; }
+.price-card { padding: 30px 20px; border-radius: 12px; text-align: center; }
+.price-card:not(.price-recommended) { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); }
+.price-recommended { background: rgba(232,184,75,0.12); border: 2px solid #e8b84b; position: relative; }
+.price-recommended::before { content: 'おすすめ'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #e8b84b; color: #1a1a2e; padding: 3px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+.price-name { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.price-amount { font-size: 36px; font-weight: 900; color: #e8b84b; }
+.price-amount small { font-size: 14px; opacity: 0.6; font-weight: 400; }
+.price-detail { font-size: 13px; opacity: 0.6; margin-top: 12px; line-height: 1.7; }
+
+.testimonial-slide { max-width: 700px; text-align: center; }
+.testimonial-slide blockquote { font-size: 28px; font-style: italic; line-height: 1.7; margin-bottom: 20px; }
+.testimonial-slide .attr { font-size: 16px; opacity: 0.5; }
+
+.profile-slide { display: flex; gap: 40px; max-width: 800px; align-items: center; }
+.profile-photo-pres { width: 180px; height: 180px; border-radius: 50%; background: #333; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 3px solid #e8b84b; }
+.profile-photo-pres span { font-size: 13px; opacity: 0.5; }
+.profile-text { text-align: left; }
+.profile-text h3 { font-size: 28px; margin-bottom: 12px; }
+.career-item { font-size: 16px; padding: 4px 0; opacity: 0.7; }
+
+.faq-row { max-width: 700px; width: 100%; text-align: left; margin-bottom: 24px; }
+.faq-row .q { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.faq-row .a { font-size: 16px; opacity: 0.6; }
+
+/* Animation */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.slide.active > * { animation: fadeIn 0.5s ease-out; }
+</style>
+</head>
+<body>
+
+<div class="nav-hint">← → キーで操作 / クリックでも進む</div>
+
+<!-- Slide 1: Title -->
+<div class="slide slide-dark active" data-slide="1">
+  <div class="small" style="letter-spacing:4px;margin-bottom:30px;">TomoRevo</div>
+  <h1>あなたの「<span class="accent">こうしたい</span>」を<br>引き出して<br>そのままITで形にする。</h1>
+  <p class="small mt40">ITコーチング — 事業者のためのIT伴走サービス</p>
+  <div class="slide-number">1</div>
+</div>
+
+<!-- Slide 2: Problem -->
+<div class="slide slide-light" data-slide="2">
+  <div class="tag">こんなお悩みありませんか？</div>
+  <div class="pain-item">熱い想いで事業を始めたのに、気づけば事務作業に追われている</div>
+  <div class="pain-item">ITの仕組みが必要なのはわかってるけど、何から手をつければいいかわからない</div>
+  <div class="pain-item">IT業者に頼んだけど、専門用語ばかりでよくわからないまま進んだ</div>
+  <div class="pain-item">本当にやりたいことに集中する時間がない</div>
+  <div class="slide-number">2</div>
+</div>
+
+<!-- Slide 3: Insight -->
+<div class="slide slide-accent" data-slide="3">
+  <h2>それは<br>あなたの問題ではありません。</h2>
+  <p style="font-size:28px;font-weight:700;margin-top:20px;">事業を支える「仕組み」が<br>まだ整っていないだけです。</p>
+  <div class="slide-number">3</div>
+</div>
+
+<!-- Slide 4: What is IT Coaching -->
+<div class="slide slide-dark" data-slide="4">
+  <div class="tag">ITコーチングとは</div>
+  <h2>あなたの想いを引き出して<br>そのまま<span class="accent">ITで形にする</span>サービス</h2>
+  <p class="center" style="opacity:0.7;">普通のIT業者は「どんなものを作りたいですか？」から始まります。</p>
+  <p class="center mt20" style="font-size:28px;font-weight:700;">TomoRevoは<br>「<span class="accent">あなたは何がしたいですか？</span>」<br>から始まります。</p>
+  <div class="slide-number">4</div>
+</div>
+
+<!-- Slide 5: Key Message -->
+<div class="slide slide-accent" data-slide="5">
+  <h1>あなたはITを<br>覚える必要はありません。</h1>
+  <p class="mt20" style="font-size:28px;font-weight:700;">本業に集中してください。</p>
+  <div class="slide-number">5</div>
+</div>
+
+<!-- Slide 6: Comparison -->
+<div class="slide slide-dark" data-slide="6">
+  <div class="tag">他のサービスとの違い</div>
+  <div class="compare-grid mt20">
+    <div class="compare-col">
+      <h4>ホームページ制作会社</h4>
+      <p>「どんなデザインにしますか？」<br><br>完成イメージの用意が必要<br><br>作って納品したら終わり</p>
+    </div>
+    <div class="compare-col">
+      <h4>ITに詳しい知り合い</h4>
+      <p>「何作ればいいの？」<br><br>自分で説明する力が必要<br><br>頼んだ時だけ対応</p>
+    </div>
+    <div class="compare-col highlight">
+      <h4>ITコーチング（TomoRevo）</h4>
+      <p><strong>「何がしたいですか？」</strong><br><br>想いがあればOK<br><br>パートナーとして走り続ける</p>
+    </div>
+  </div>
+  <div class="slide-number">6</div>
+</div>
+
+<!-- Slide 7: Profile -->
+<div class="slide slide-dark" data-slide="7">
+  <div class="tag">なぜTomoRevoにできるのか</div>
+  <div class="profile-slide mt20">
+    <div class="profile-photo-pres">
+      <span>写真<br>準備中</span>
+    </div>
+    <div class="profile-text">
+      <h3>藤田裕二</h3>
+      <div class="career-item">▸ パーソナルジム運営 — 1人事業者の苦しさを体で知っている</div>
+      <div class="career-item">▸ システムエンジニア — 自分の手でITを作れる技術力</div>
+      <div class="career-item">▸ ベンチャー企業（年商4億） — YouTubeリーダー・DX推進</div>
+      <div class="career-item">▸ 広告会社CTO — 組織全体のIT設計</div>
+      <div class="career-item">▸ コーチング × 心理学 — 想いを引き出し、動ける状態を作る力</div>
+    </div>
+  </div>
+  <div class="slide-number">7</div>
+</div>
+
+<!-- Slide 8: Unique Value -->
+<div class="slide slide-accent" data-slide="8">
+  <p style="font-size:24px;">ITの専門家はたくさんいます。<br>人の話を聞くプロもたくさんいます。</p>
+  <h2 class="mt40">でも、想いを引き出して<br>そのまま<strong>ITに変換できる人</strong>は<br>ほとんどいません。</h2>
+  <div class="slide-number">8</div>
+</div>
+
+<!-- Slide 9: Testimonials -->
+<div class="slide slide-dark" data-slide="9">
+  <div class="tag">お客様の声</div>
+  <div class="testimonial-slide mt20">
+    <blockquote>「IT業界のベテランさんも他に知ってるけど、<br>ゆうじくんに頼んでるのは<span class="accent">人柄</span>よ」</blockquote>
+    <div class="attr">— 美容サロン経営・50代女性</div>
+  </div>
+  <div class="testimonial-slide mt40">
+    <blockquote>「話してるだけで<br><span class="accent">コーチングみたい</span>になってる」</blockquote>
+    <div class="attr">— オンライン講座運営・40代女性</div>
+  </div>
+  <div class="slide-number">9</div>
+</div>
+
+<!-- Slide 10: Case Study Before -->
+<div class="slide slide-light" data-slide="10">
+  <div class="tag">実際の変化（サロン経営者 Aさん）</div>
+  <h3 class="mt20">Before</h3>
+  <p class="center" style="max-width:600px;">お客様対応や予約管理に追われ、自分の時間がほとんどない。<br>新しいことを始めたい気持ちはあるが、目の前の業務で手一杯。</p>
+  <div class="slide-number">10</div>
+</div>
+
+<!-- Slide 11: Case Study After -->
+<div class="slide slide-dark" data-slide="11">
+  <div class="tag">実際の変化（サロン経営者 Aさん）</div>
+  <h3 class="mt20">After <span class="small">（約1年間の伴走）</span></h3>
+  <div style="max-width:600px;text-align:left;margin-top:20px;">
+    <p style="font-size:20px;padding:10px 0;">✓ 毎月数時間の予約管理が<span class="accent">ほぼゼロ</span>に</p>
+    <p style="font-size:20px;padding:10px 0;">✓ 精神的・物理的な<span class="accent">余裕</span>が生まれた</p>
+    <p style="font-size:20px;padding:10px 0;">✓ その余裕を<span class="accent">自己投資</span>や新たな挑戦に活用</p>
+    <p style="font-size:20px;padding:10px 0;">✓ 新コンセプトで<span class="accent">次のステージ</span>に挑戦中</p>
+  </div>
+  <div class="slide-number">11</div>
+</div>
+
+<!-- Slide 12: Service Steps -->
+<div class="slide slide-dark" data-slide="12">
+  <div class="tag">サービスの流れ</div>
+  <div class="step-row mt20">
+    <div class="step-num-big">1</div>
+    <div class="step-text"><h3>対話</h3><p>あなたの想いを引き出す。「何がしたいか」「何に困っているか」を一緒に整理</p></div>
+  </div>
+  <div class="step-row mt20">
+    <div class="step-num-big">2</div>
+    <div class="step-text"><h3>IT実装</h3><p>想いをそのままITで形にする。サービス紹介ページ・LINE・予約・自動化</p></div>
+  </div>
+  <div class="step-row mt20">
+    <div class="step-num-big">3</div>
+    <div class="step-text"><h3>伴走</h3><p>作って終わりではない。事業の変化に合わせて仕組みも一緒に進化させる</p></div>
+  </div>
+  <div class="slide-number">12</div>
+</div>
+
+<!-- Slide 13: Roadmap -->
+<div class="slide slide-light" data-slide="13">
+  <div class="tag">ご利用の流れ（スタンダードプランの例）</div>
+  <div class="mt20" style="max-width:850px;width:100%;">
+    <div class="roadmap-row">
+      <div class="roadmap-header">時期</div>
+      <div class="roadmap-header">やること</div>
+      <div class="roadmap-header">変わること</div>
+    </div>
+    <div class="roadmap-row">
+      <div class="month">1ヶ月目</div>
+      <div class="what">事業の全体像を整理 → 最優先の仕組みから着手</div>
+      <div class="change">「何から手をつければいいか」が明確に</div>
+    </div>
+    <div class="roadmap-row">
+      <div class="month">2ヶ月目</div>
+      <div class="what">サービス紹介ページ作成 → 予約・決済の連携</div>
+      <div class="change">申し込みまでの流れが一本に繋がる</div>
+    </div>
+    <div class="roadmap-row">
+      <div class="month">3ヶ月目</div>
+      <div class="what">全体をテスト → 運用開始 → 改善</div>
+      <div class="change">SNS紹介だけで自動で予約・決済まで進む</div>
+    </div>
+    <div class="roadmap-row">
+      <div class="month">4ヶ月目〜</div>
+      <div class="what">改善・新たな仕組みの追加</div>
+      <div class="change">事業が成長しても仕組みが一緒に進化</div>
+    </div>
+  </div>
+  <p class="small mt20 center">※あくまで一例です。あなたの状況に合わせて柔軟に調整します</p>
+  <div class="slide-number">13</div>
+</div>
+
+<!-- Slide 14: Pricing -->
+<div class="slide slide-dark" data-slide="14">
+  <div class="tag">料金プラン</div>
+  <div class="pricing-grid mt20">
+    <div class="price-card">
+      <div class="price-name">ライト</div>
+      <div class="price-amount">50,000<small>円/月</small></div>
+      <div class="price-detail">月1回セッション<br>既存の仕組みの修正・改善<br>無制限チャット相談</div>
+    </div>
+    <div class="price-card price-recommended">
+      <div class="price-name">スタンダード</div>
+      <div class="price-amount">100,000<small>円/月</small></div>
+      <div class="price-detail">月2回セッション<br>ページ・LINE・予約等の構築<br>無制限チャット相談 + 優先対応</div>
+    </div>
+    <div class="price-card">
+      <div class="price-name">プレミアム</div>
+      <div class="price-amount">200,000<small>円〜/月</small></div>
+      <div class="price-detail">週1回セッション<br>事業全体の仕組み設計<br>無制限チャット + 方向性伴走</div>
+    </div>
+  </div>
+  <p class="small mt20 center">※ 税別 / 初期構築費（目安5〜30万円）が別途かかる場合があります</p>
+  <div class="slide-number">14</div>
+</div>
+
+<!-- Slide 15: Closing -->
+<div class="slide slide-dark" data-slide="15">
+  <p style="font-size:20px;opacity:0.7;max-width:600px;text-align:center;">私自身、1人でジムを運営していた時、<br>事務作業に追われて本当にやりたいことに<br>時間が使えない日々を過ごしていました。</p>
+  <p class="mt20" style="font-size:20px;opacity:0.7;max-width:600px;text-align:center;">同じ状況にいるあなたの気持ちが<br>痛いほどわかります。</p>
+  <h1 class="mt40">あなたが<span class="accent">本当にやりたかったこと</span><br>もう一度ここから<br>始めませんか？</h1>
+  <div class="slide-number">15</div>
+</div>
+
+<!-- Slide 16: CTA -->
+<div class="slide slide-accent" data-slide="16">
+  <h2>まずは60分、<br>無料でお話ししませんか？</h2>
+  <p class="mt20" style="font-size:20px;">あなたの事業の状況を聞いて<br>「今一番やるべきこと」を一つ明確にします。</p>
+  <p class="mt40" style="font-size:18px;opacity:0.7;">無理な勧誘は一切しません。</p>
+  <p class="mt40" style="font-size:14px;letter-spacing:3px;opacity:0.5;">TomoRevo — ともに革命の灯火を灯す</p>
+  <div class="slide-number">16</div>
+</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+
+function showSlide(n) {
+  slides[current].classList.remove('active');
+  current = ((n % total) + total) % total;
+  slides[current].classList.add('active');
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); showSlide(current + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); showSlide(current - 1); }
+  if (e.key === 'f') { document.documentElement.requestFullscreen(); }
+});
+
+document.addEventListener('click', (e) => {
+  if (e.clientX > window.innerWidth / 2) showSlide(current + 1);
+  else showSlide(current - 1);
+});
+</script>
+</body>
+</html>
