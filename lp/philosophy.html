@@ -35,40 +35,88 @@ h3 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 30px;
 .section-dark h3 { color: #fff; }
 p { margin-bottom: 16px; }
 
-/* Mission Flow */
-.mission-flow {
+/* Mission Circle */
+.mission-circle-wrap {
   display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin: 40px 0;
+  justify-content: center;
+  margin: 50px 0 30px;
 }
-.mission-step {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 20px 0;
+.mission-circle {
+  position: relative;
+  width: 360px;
+  height: 360px;
 }
-.mission-num {
-  width: 44px;
-  height: 44px;
+.circle-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(232,184,75,0.2);
+  border-radius: 50%;
+}
+.circle-arrow-svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.circle-node {
+  position: absolute;
+  text-align: center;
+  width: 120px;
+  margin-left: -60px;
+  margin-top: -30px;
+}
+.circle-node-icon {
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: #e8b84b;
   color: #1a1a2e;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-weight: 900;
-  font-size: 18px;
-  flex-shrink: 0;
+  font-size: 16px;
+  margin-bottom: 6px;
 }
-.mission-text strong { display: block; font-size: 17px; margin-bottom: 2px; }
-.mission-text span { font-size: 14px; opacity: 0.6; }
-.section-dark .mission-text span { opacity: 0.5; }
-.mission-arrow {
+.circle-node strong { display: block; font-size: 14px; color: #fff; }
+.circle-node span { font-size: 11px; opacity: 0.5; line-height: 1.4; display: block; margin-top: 2px; }
+/* Positions: top, right, bottom, left */
+.node-top { top: -20px; left: 50%; }
+.node-right { top: 50%; right: -60px; left: auto; margin-left: 0; margin-right: -60px; }
+.node-bottom { bottom: -30px; top: auto; left: 50%; margin-top: 0; }
+.node-left { top: 50%; left: -60px; margin-left: -60px; }
+/* Center */
+.circle-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
+}
+.circle-center-text {
+  font-size: 13px;
+  font-weight: 700;
   color: #e8b84b;
-  font-size: 20px;
-  opacity: 0.4;
+  letter-spacing: 1px;
+}
+.circle-center-sub {
+  font-size: 11px;
+  opacity: 0.5;
+  margin-top: 4px;
+}
+
+/* Mobile mission fallback */
+.mission-list-mobile { display: none; }
+@media (max-width: 500px) {
+  .mission-circle-wrap { display: none; }
+  .mission-list-mobile { display: block; margin: 30px 0; }
+  .mission-list-item { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .mission-list-item .mli-icon { width: 36px; height: 36px; border-radius: 50%; background: #e8b84b; color: #1a1a2e; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; flex-shrink: 0; }
+  .mission-list-item strong { font-size: 15px; }
+  .mission-list-item span { font-size: 12px; opacity: 0.5; }
+  .mission-list-arrow { text-align: center; color: #e8b84b; opacity: 0.3; font-size: 16px; padding: 4px 0; }
 }
 
 /* Value Cards */
@@ -152,45 +200,70 @@ p { margin-bottom: 16px; }
     <h3>全ての人々のワクワクの総量を<br>最大化することに貢献する。</h3>
     <p style="text-align:center;opacity:0.7;font-size:15px;">まず自分自身がワクワクと生きること。<br>その姿が仲間に伝わり、お客様に届き、お客様の先にいる人へと広がっていく。</p>
 
-    <div class="mission-flow">
-      <div class="mission-step">
-        <div class="mission-num">1</div>
-        <div class="mission-text">
-          <strong>自分自身</strong>
-          <span>自分がワクワクと生きていなければ、誰かを導くことはできない</span>
+    <!-- Circle Diagram (Desktop) -->
+    <div class="mission-circle-wrap">
+      <div class="mission-circle">
+        <div class="circle-ring"></div>
+        <!-- Circular arrows SVG -->
+        <svg class="circle-arrow-svg" viewBox="0 0 360 360" fill="none">
+          <!-- Clockwise arrow path -->
+          <path d="M 180 30 A 150 150 0 0 1 330 180" stroke="#e8b84b" stroke-width="1.5" fill="none" stroke-dasharray="6 4" opacity="0.4"/>
+          <polygon points="328,175 335,185 322,185" fill="#e8b84b" opacity="0.5"/>
+          <path d="M 330 180 A 150 150 0 0 1 180 330" stroke="#e8b84b" stroke-width="1.5" fill="none" stroke-dasharray="6 4" opacity="0.4"/>
+          <polygon points="185,328 175,335 175,322" fill="#e8b84b" opacity="0.5"/>
+          <path d="M 180 330 A 150 150 0 0 1 30 180" stroke="#e8b84b" stroke-width="1.5" fill="none" stroke-dasharray="6 4" opacity="0.4"/>
+          <polygon points="32,185 25,175 38,175" fill="#e8b84b" opacity="0.5"/>
+          <path d="M 30 180 A 150 150 0 0 1 180 30" stroke="#e8b84b" stroke-width="1.5" fill="none" stroke-dasharray="6 4" opacity="0.4"/>
+          <polygon points="175,32 185,25 185,38" fill="#e8b84b" opacity="0.5"/>
+        </svg>
+        <!-- Nodes -->
+        <div class="circle-node node-top">
+          <div class="circle-node-icon">TR</div>
+          <strong>TomoRevo</strong>
+          <span>まず自分たちが<br>ワクワクと生きる</span>
         </div>
-      </div>
-      <div class="mission-arrow">↓</div>
-      <div class="mission-step">
-        <div class="mission-num">2</div>
-        <div class="mission-text">
-          <strong>社員・仲間</strong>
-          <span>一緒に働く仲間がワクワクしていること。仕事が自己実現の場であること</span>
-        </div>
-      </div>
-      <div class="mission-arrow">↓</div>
-      <div class="mission-step">
-        <div class="mission-num">3</div>
-        <div class="mission-text">
+        <div class="circle-node node-right">
+          <div class="circle-node-icon">→</div>
           <strong>お客様</strong>
-          <span>大切なことに集中できる時間を取り戻し、事業を通じてワクワクと生きる</span>
+          <span>大切なことに<br>集中できる時間を</span>
         </div>
-      </div>
-      <div class="mission-arrow">↓</div>
-      <div class="mission-step">
-        <div class="mission-num">4</div>
-        <div class="mission-text">
-          <strong>お客様のお客様</strong>
-          <span>お客様が輝くことで、その先にいる人たちにも良い影響が連鎖する</span>
-        </div>
-      </div>
-      <div class="mission-arrow">↓</div>
-      <div class="mission-step">
-        <div class="mission-num">5</div>
-        <div class="mission-text">
+        <div class="circle-node node-bottom">
+          <div class="circle-node-icon">→</div>
           <strong>社会</strong>
-          <span>ワクワクと生きる大人が増えることで、子供たちが未来に希望を持てる社会へ</span>
+          <span>ワクワクする大人が<br>増え、子供が未来に<br>希望を持てる</span>
         </div>
+        <div class="circle-node node-left">
+          <div class="circle-node-icon">→</div>
+          <strong>TomoRevoへ</strong>
+          <span>その姿が新たな<br>ワクワクの源泉に</span>
+        </div>
+        <!-- Center -->
+        <div class="circle-center">
+          <div class="circle-center-text">ワクワクの<br>循環</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile fallback (list) -->
+    <div class="mission-list-mobile">
+      <div class="mission-list-item">
+        <div class="mli-icon">TR</div>
+        <div><strong>TomoRevo</strong><br><span>まず自分たちがワクワクと生きる</span></div>
+      </div>
+      <div class="mission-list-arrow">↓</div>
+      <div class="mission-list-item">
+        <div class="mli-icon">→</div>
+        <div><strong>お客様</strong><br><span>大切なことに集中できる時間を取り戻す</span></div>
+      </div>
+      <div class="mission-list-arrow">↓</div>
+      <div class="mission-list-item">
+        <div class="mli-icon">→</div>
+        <div><strong>社会</strong><br><span>ワクワクする大人が増え、子供が未来に希望を持てる</span></div>
+      </div>
+      <div class="mission-list-arrow">↓</div>
+      <div class="mission-list-item">
+        <div class="mli-icon">→</div>
+        <div><strong>TomoRevoへ</strong><br><span>その姿が新たなワクワクの源泉に戻る</span></div>
       </div>
     </div>
   </div>
