@@ -11,8 +11,19 @@
 body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; font-size: 16px; }
 img { max-width: 100%; }
 a { color: inherit; }
-.section { padding: 80px 20px; }
-.container { max-width: 800px; margin: 0 auto; }
+.section { padding: 80px 24px; }
+.container { max-width: 800px; margin: 0 auto; padding: 0 16px; }
+@media (max-width: 767px) {
+  .section { padding: 60px 20px; }
+  .container { padding: 0 8px; }
+  .fv { padding: 80px 28px 60px; }
+  .closing { padding: 60px 28px; }
+  .what-box { padding: 30px 24px; }
+  .case-box { padding: 24px 20px; }
+  .pricing-card { padding: 24px 20px; }
+  .pain-answer { padding: 24px 20px; font-size: 16px; }
+  .faq-a { padding-left: 20px; }
+}
 .section-alt { background: #f8f6f3; }
 
 /* First View */
@@ -128,6 +139,10 @@ a { color: inherit; }
 .philosophy-link a { color: rgba(255,255,255,0.6); font-size: 13px; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); }
 .philosophy-link a:hover { color: #e8b84b; border-color: #e8b84b; }
 
+/* SP only line breaks */
+.sp-only { display: none; }
+@media (max-width: 767px) { .sp-only { display: inline; } }
+
 @media (min-width: 768px) {
   .fv h1 { font-size: 36px; }
   .section-title { font-size: 28px; }
@@ -141,8 +156,8 @@ a { color: inherit; }
 <!-- First View -->
 <section class="fv">
   <div class="fv-logo"><img src="logo.png" alt="TomoRevo" style="height:60px;margin-bottom:10px;"><br>TomoRevo</div>
-  <p class="fv-target">「好きなことで始めた事業なのに、事務作業ばかりで1日が終わる」<br>そんなあなたへ。</p>
-  <h1><span>話すだけ</span>で、事業の仕組みが整っていく。<br>ITコーチングという新しい選択肢。</h1>
+  <p class="fv-target">「好きなことで始めた事業なのに、<br class="sp-only">事務作業ばかりで1日が終わる」<br>そんなあなたへ。</p>
+  <h1><span>話すだけ</span>で、<br class="sp-only">事業の仕組みが整っていく。<br>ITコーチングという<br class="sp-only">新しい選択肢。</h1>
   <p class="fv-sub">対話であなたの想いを引き出して、仕組みまで全部つくる伴走サービス</p>
   <a href="#contact" class="fv-cta">まずは60分、話してみませんか？（無料）</a>
 </section>
@@ -174,12 +189,11 @@ a { color: inherit; }
     <h2 class="section-title"><span>ITコーチング</span>とは</h2>
     <div class="what-box">
       <p>あなたの想いを引き出して、そのままITで形にするサービスです。</p>
-      <p>普通のIT業者は「どんなものを作りたいですか？」から始まります。<br>
-      TomoRevoは<strong>「あなたは何がしたいですか？」</strong>から始まります。</p>
-      <p>対話の中で、あなたが本当に大切にしたいこと・届けたい想いを引き出し、<br>
-      サービス紹介ページ・公式LINE・予約の仕組み・面倒な作業の自動化まで、こちらで形にします。</p>
+      <p>普通のIT業者は「どんなものを作りたいですか？」から始まります。</p>
+      <p>TomoRevoは<strong>「あなたは何がしたいですか？」</strong>から始まります。</p>
+      <p>対話の中で、あなたが本当に大切にしたいこと・届けたい想いを引き出し、サービス紹介ページ・公式LINE・予約の仕組み・面倒な作業の自動化まで、こちらで形にします。</p>
     </div>
-    <div class="what-highlight">あなたはITを覚える必要はありません。<br>本業に集中してください。</div>
+    <div class="what-highlight">あなたはITを覚える必要はありません。<br class="sp-only">本業に集中してください。</div>
   </div>
 </section>
 
@@ -256,8 +270,8 @@ a { color: inherit; }
       </div>
     </div>
     <p class="profile-statement">
-      ITを作れる人はたくさんいる。話を聞くのがうまい人もたくさんいる。<br>
-      でも、あなたの想いを対話で引き出して、<strong>そのままITにできる人</strong>は、ほとんどいません。
+      ITを作れる人はたくさんいる。<br class="sp-only">話を聞くのがうまい人もたくさんいる。<br>
+      でも、あなたの想いを対話で引き出して、<br class="sp-only"><strong>そのままITにできる人</strong>は、<br class="sp-only">ほとんどいません。
     </p>
 
     <div class="testimonial testimonial-detail">
@@ -431,9 +445,10 @@ a { color: inherit; }
 <!-- Closing & CTA -->
 <section class="closing" id="contact">
   <div class="container">
-    <p>自分も1人でジムを回していた時、<br>事務作業ばかりで、好きなことに時間が使えない日々がありました。</p>
-    <p>仕組みを整えたら、お客様と向き合う時間が戻ってきた。<br>あの時の「ああ、これがやりたかったんだ」という感覚を、あなたにも届けたい。</p>
-    <p class="closing-highlight">あなたが<span>本当にやりたかったこと</span>、<br>ここから一緒に取り戻しませんか？</p>
+    <p>自分も1人でジムを回していた時、事務作業ばかりで、好きなことに時間が使えない日々がありました。</p>
+    <p>仕組みを整えたら、お客様と向き合う時間が戻ってきた。</p>
+    <p>あの時の「ああ、これがやりたかったんだ」という感覚を、あなたにも届けたい。</p>
+    <p class="closing-highlight">あなたが<span>本当にやりたかったこと</span>、<br class="sp-only">ここから一緒に取り戻しませんか？</p>
 
     <div class="closing-cta-group">
       <div>
