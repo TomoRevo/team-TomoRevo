@@ -42,10 +42,15 @@ a { color: inherit; }
 .section-title span { color: #c17a2a; }
 
 /* Pain Points */
-.pain-list { list-style: none; margin-bottom: 30px; }
-.pain-list li { padding: 14px 0 14px 30px; position: relative; border-bottom: 1px solid #eee; font-size: 15px; }
-.pain-list li::before { content: '✓'; position: absolute; left: 0; color: #c17a2a; font-weight: 700; }
+.pain-cards { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; }
+.pain-card { display: flex; gap: 16px; align-items: center; background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
+.pain-card img { width: 90px; height: 90px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+.pain-card p { font-size: 15px; line-height: 1.7; }
 .pain-answer { text-align: center; font-size: 18px; font-weight: 700; padding: 30px; background: #fff; border-radius: 12px; border: 2px solid #e8b84b; }
+
+/* Section images */
+.section-img { width: 100%; border-radius: 12px; margin-bottom: 20px; object-fit: cover; max-height: 300px; }
+.step-img { width: 100%; border-radius: 8px; margin-top: 12px; max-height: 200px; object-fit: cover; }
 
 /* What is IT Coaching */
 .what-box { background: #fff; border-radius: 12px; padding: 40px 30px; margin-bottom: 30px; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
@@ -166,13 +171,28 @@ a { color: inherit; }
 <section class="section">
   <div class="container">
     <h2 class="section-title"><span>こんな毎日</span>になっていませんか？</h2>
-    <ul class="pain-list">
-      <li>好きで始めた仕事なのに、気づけば予約管理とLINE返信で1日が終わっている</li>
-      <li>「ホームページ作らなきゃ」「LINE公式やらなきゃ」…わかってるけど何から始めればいいかわからない</li>
-      <li>HP制作会社に頼んだら、専門用語の打ち合わせばかりで疲れた</li>
-      <li>InstagramやSNSで発信しても、そこからお客様が来る流れができていない</li>
-      <li>本当はもっとお客様と向き合う時間がほしい</li>
-    </ul>
+    <div class="pain-cards">
+      <div class="pain-card">
+        <img src="https://plus.unsplash.com/premium_photo-1678567671287-78b199e75c46?w=400&q=80" alt="" loading="lazy">
+        <p>好きで始めた仕事なのに、気づけば予約管理とLINE返信で1日が終わっている</p>
+      </div>
+      <div class="pain-card">
+        <img src="https://images.unsplash.com/photo-1637607699026-45c3f136a985?w=400&q=80" alt="" loading="lazy">
+        <p>「ホームページ作らなきゃ」「LINE公式やらなきゃ」…わかってるけど何から始めればいいかわからない</p>
+      </div>
+      <div class="pain-card">
+        <img src="https://plus.unsplash.com/premium_photo-1661333468805-e44347dbbf58?w=400&q=80" alt="" loading="lazy">
+        <p>HP制作会社に頼んだら、専門用語の打ち合わせばかりで疲れた</p>
+      </div>
+      <div class="pain-card">
+        <img src="https://images.unsplash.com/photo-1632282003613-1663e9a273db?w=400&q=80" alt="" loading="lazy">
+        <p>InstagramやSNSで発信しても、そこからお客様が来る流れができていない</p>
+      </div>
+      <div class="pain-card">
+        <img src="https://plus.unsplash.com/premium_photo-1664304612055-7922db7654bb?w=400&q=80" alt="" loading="lazy">
+        <p>本当はもっとお客様と向き合う時間がほしい</p>
+      </div>
+    </div>
     <div class="pain-answer">
       あなたの想いも情熱も、ちゃんとあります。<br>
       あとは、それを届ける「仕組み」を整えるだけ。
@@ -296,6 +316,7 @@ a { color: inherit; }
     <div class="case-box">
       <p class="case-label">サロン経営者 Aさん（約1年間の伴走）</p>
       <div class="case-before">
+        <img src="https://images.unsplash.com/photo-1551386234-48770e28e791?w=800&q=80" alt="" loading="lazy" style="width:100%;border-radius:8px;margin-bottom:12px;max-height:180px;object-fit:cover;">
         <strong>Before:</strong><br>
         お客様対応や予約管理に追われ、自分の時間がほとんどない。新しいことを始めたい気持ちはあるが、目の前の業務で手一杯。
       </div>
@@ -309,6 +330,7 @@ a { color: inherit; }
         </ul>
       </div>
       <div class="case-after">
+        <img src="https://plus.unsplash.com/premium_photo-1661598136077-47606b762047?w=800&q=80" alt="" loading="lazy" style="width:100%;border-radius:8px;margin-bottom:12px;max-height:180px;object-fit:cover;">
         <strong>After:</strong>
         <ul style="list-style:none;padding:0;margin-top:8px;">
           <li>✓ 毎月数時間かかっていた予約管理がほぼゼロに</li>
@@ -321,7 +343,33 @@ a { color: inherit; }
   </div>
 </section>
 
-<!-- Roadmap (Steps + Timeline combined) -->
+<!-- Service 3 Steps with images -->
+<section class="section">
+  <div class="container">
+    <p style="text-align:center;font-size:15px;color:#999;margin-bottom:30px;">「気になるけど、具体的に何が起きるの？」</p>
+    <h2 class="section-title">サービスの<span>3つの柱</span></h2>
+
+    <div style="background:#fff;border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,0.04);">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><span style="background:#c17a2a;color:#fff;width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">1</span><h3 style="font-size:18px;">対話 — あなたの想いを引き出す</h3></div>
+      <p style="font-size:14px;color:#666;margin-bottom:12px;">オンラインセッションで「何がしたいか」「何に困っているか」を一緒に整理。あなた自身も気づいていなかった本当の課題が見えてきます。</p>
+      <img src="https://plus.unsplash.com/premium_photo-1736858062617-c26da1692358?w=800&q=80" alt="" loading="lazy" style="width:100%;border-radius:8px;max-height:200px;object-fit:cover;">
+    </div>
+
+    <div style="background:#fff;border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,0.04);">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><span style="background:#c17a2a;color:#fff;width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">2</span><h3 style="font-size:18px;">IT実装 — 想いを形にする</h3></div>
+      <p style="font-size:14px;color:#666;margin-bottom:12px;">サービス紹介ページ・公式LINE・予約の仕組み・面倒な作業の自動化まで、全部こちらで作ります。あなたはITを覚える必要はありません。</p>
+      <img src="https://plus.unsplash.com/premium_photo-1661311807133-429fbb8adb4d?w=800&q=80" alt="" loading="lazy" style="width:100%;border-radius:8px;max-height:200px;object-fit:cover;">
+    </div>
+
+    <div style="background:#fff;border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,0.04);">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><span style="background:#c17a2a;color:#fff;width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">3</span><h3 style="font-size:18px;">伴走 — 一緒に走り続ける</h3></div>
+      <p style="font-size:14px;color:#666;margin-bottom:12px;">作って終わりではなく、事業の変化に合わせて仕組みも進化させます。チャットで無制限に相談OK。</p>
+      <img src="https://plus.unsplash.com/premium_photo-1723478429870-80782df42925?w=800&q=80" alt="" loading="lazy" style="width:100%;border-radius:8px;max-height:200px;object-fit:cover;">
+    </div>
+  </div>
+</section>
+
+<!-- Roadmap (Timeline) -->
 <section class="section section-alt">
   <div class="container">
     <h2 class="section-title">ご利用の<span>流れ</span><small style="font-size:14px;color:#999;display:block;">（スタンダードプランの例）</small></h2>
